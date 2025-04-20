@@ -36,3 +36,7 @@ Di terminal VSCode, ketik:
 5. 'php artisan migrate --seed'
 6. 'php artisan serve' atau klik kanan di Laragon, lalu www, dan pilih gkjcc.
 ```
+
+## Demo
+Klik link berikut untuk melihat versi demo (guest mode)
+[DEMO](https://gkjcc-demo.vercel.app/)

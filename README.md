@@ -40,3 +40,7 @@ Di terminal VSCode, ketik:
 ## Demo
 Klik link berikut untuk melihat versi demo (guest mode)
 [DEMO](https://gkjcc-demo.vercel.app/)
+
+## Tutorial
+Berikut tutorial Youtube
+[Youtube Sandikha Galih](https://www.youtube.com/watch?v=T1TR-RGf2Pw&list=PLFIM0718LjIW1Xb7cVj7LdAr32ATDQMdr) 

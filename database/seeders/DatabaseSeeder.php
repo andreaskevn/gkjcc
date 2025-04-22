@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             ChoirSeeder::class,
             BidangsSeeder::class,
             CommisonSeeder::class,
+            FormCategoriesSeeder::class,
             FormSeeder::class,
             ScholarshipSeeder::class,
             InformationSeeder::class,

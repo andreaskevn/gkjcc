@@ -31,23 +31,16 @@
                 </svg>
                 <span class="font-medium">Jadwal Sepekan</span>
             </a>
-            <div>
-                <div class="flex items-center px-4 py-2 text-gray-400 uppercase text-xs font-semibold tracking-wider">
-                    Peribadahan
-                </div>
-                <a href="{{ route('kategori-jadwalibadah') }}"
-                    class="ml-4 flex items-center px-0 py-2.5 {{ request()->routeIs('kategori-jadwalibadah') ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-700' }} rounded-lg transition-all duration-200 group">
-                    <svg class="h-5 w-5 {{ request()->routeIs('kategori-jadwalibadah') ? 'text-white' : 'text-gray-400 group-hover:text-white' }} mr-3"
-                        ...></svg>
-                    <span class="font-medium">Kategori Ibadah</span>
-                </a>
-                <a href="{{ route('jadwalibadah') }}"
-                    class="ml-4 flex items-center px-0 py-2.5 {{ request()->routeIs('jadwalibadah') ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-700' }} rounded-lg transition-all duration-200 group">
-                    <svg class="h-5 w-5 {{ request()->routeIs('jadwalibadah') ? 'text-white' : 'text-gray-400 group-hover:text-white' }} mr-3"
-                        ...></svg>
-                    <span class="font-medium">Jadwal Ibadah</span>
-                </a>
-            </div>
+            <a href="{{ route('pengguna') }}"
+                class="flex items-center px-4 py-2.5 {{ request()->routeIs('pengguna') ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-700' }} rounded-lg transition-all duration-200 group">
+                <svg class="h-5 w-5 {{ request()->routeIs('pengguna') ? 'text-white' : 'text-gray-400 group-hover:text-white' }} mr-3"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
+                </svg>
+                <span class="font-medium">Pengguna</span>
+            </a>
             <div>
                 <div class="flex items-center px-4 py-2 text-gray-400 uppercase text-xs font-semibold tracking-wider">
                     Informasi
@@ -100,26 +93,40 @@
                     <span class="font-medium">Paduan Suara</span>
                 </a>
             </div>
-            <a href="{{ route('pengguna') }}"
-                class="flex items-center px-4 py-2.5 {{ request()->routeIs('pengguna') ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-700' }} rounded-lg transition-all duration-200 group">
-                <svg class="h-5 w-5 {{ request()->routeIs('pengguna') ? 'text-white' : 'text-gray-400 group-hover:text-white' }} mr-3"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
-                </svg>
-                <span class="font-medium">Pengguna</span>
-            </a>
-            <a href="{{ route('form') }}"
-                class="flex items-center px-4 py-2.5 {{ request()->routeIs('form') ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-700' }} rounded-lg transition-all duration-200 group">
-                <svg class="h-5 w-5 {{ request()->routeIs('form') ? 'text-white' : 'text-gray-400 group-hover:text-white' }} mr-3"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
-                </svg>
-                <span class="font-medium">Formulir</span>
-            </a>
+            <div>
+                <div class="flex items-center px-4 py-2 text-gray-400 uppercase text-xs font-semibold tracking-wider">
+                    Peribadahan
+                </div>
+                <a href="{{ route('kategori-jadwalibadah') }}"
+                    class="ml-4 flex items-center px-0 py-2.5 {{ request()->routeIs('kategori-jadwalibadah') ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-700' }} rounded-lg transition-all duration-200 group">
+                    <svg class="h-5 w-5 {{ request()->routeIs('kategori-jadwalibadah') ? 'text-white' : 'text-gray-400 group-hover:text-white' }} mr-3"
+                        ...></svg>
+                    <span class="font-medium">Kategori Ibadah</span>
+                </a>
+                <a href="{{ route('jadwalibadah') }}"
+                    class="ml-4 flex items-center px-0 py-2.5 {{ request()->routeIs('jadwalibadah') ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-700' }} rounded-lg transition-all duration-200 group">
+                    <svg class="h-5 w-5 {{ request()->routeIs('jadwalibadah') ? 'text-white' : 'text-gray-400 group-hover:text-white' }} mr-3"
+                        ...></svg>
+                    <span class="font-medium">Jadwal Ibadah</span>
+                </a>
+            </div>
+            <div>
+                <div class="flex items-center px-4 py-2 text-gray-400 uppercase text-xs font-semibold tracking-wider">
+                    Pelayanan Sakramental
+                </div>
+                <a href="{{ route('kategori-form') }}"
+                    class="ml-4 flex items-center px-0 py-2.5 {{ request()->routeIs('kategori-form') ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-700' }} rounded-lg transition-all duration-200 group">
+                    <svg class="h-5 w-5 {{ request()->routeIs('kategori-form') ? 'text-white' : 'text-gray-400 group-hover:text-white' }} mr-3"
+                        ...></svg>
+                    <span class="font-medium">Kategori Formulir</span>
+                </a>
+                <a href="{{ route('form') }}"
+                    class="ml-4 flex items-center px-0 py-2.5 {{ request()->routeIs('form') ? 'bg-indigo-600 text-white' : 'text-gray-300 hover:bg-gray-700' }} rounded-lg transition-all duration-200 group">
+                    <svg class="h-5 w-5 {{ request()->routeIs('form') ? 'text-white' : 'text-gray-400 group-hover:text-white' }} mr-3"
+                        ...></svg>
+                    <span class="font-medium">Formulir</span>
+                </a>
+            </div>
         </div>
     </nav>
 </aside>

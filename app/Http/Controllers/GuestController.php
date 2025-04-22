@@ -1,0 +1,135 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\{
+    Information,
+    Komisi,
+    Scholarship,
+    WorshipSchedule,
+    Warta,
+    Bidang,
+    Choir,
+    Form
+};
+
+class GuestController extends Controller
+{
+    public function index()
+    {
+        $pengumuman = Information::with('user', 'category')->where('category_id', 1)->latest()->take(3)->get();
+        $berita = Information::with('user', 'category')->where('category_id', 2)->latest()->take(3)->get();
+        $worshipSchedules = WorshipSchedule::all()->groupBy('category_id');
+        return view('home', compact('pengumuman', 'berita', 'worshipSchedules'));
+    }
+
+    public function showPengumuman()
+    {
+        $pengumuman = Information::with('user', 'category')->where('category_id', 1)->get();
+        return view('guest.pengumuman.tampilan', compact('pengumuman'));
+    }
+
+    public function showPengumumanDetail($id)
+    {
+        $pengumuman = Information::with('user', 'category')->where('category_id', 1)->findOrFail($id);
+        $rekomendasi = Information::latest()
+            ->where('category_id', 1)
+            ->where('id', '!=', $pengumuman->id)
+            ->take(3)
+            ->get();
+        return view('guest.pengumuman.show', compact('pengumuman', 'rekomendasi'));
+    }
+
+    public function showBerita()
+    {
+        $berita = Information::with('user', 'category')->where('category_id', 2)->get();
+        return view('guest.berita.tampilan', compact('berita'));
+    }
+
+    public function showBeritaDetail($id)
+    {
+        $berita = Information::with('user', 'category')->where('category_id', 2)->findOrFail($id);
+        $rekomendasi = Information::latest()
+            ->where('category_id', 2)
+            ->where('id', '!=', $berita->id)
+            ->take(3)
+            ->get();
+        return view('guest.berita.show', compact('berita', 'rekomendasi'));
+    }
+
+    public function showLowongan()
+    {
+        $lowongan = Information::with('user', 'category')->where('category_id', 3)->get();
+        return view('guest.info-lowongan.tampilan', compact('lowongan'));
+    }
+
+    public function showLowonganDetail($id)
+    {
+        $lowongan = Information::with('user', 'category')->where('category_id', 3)->findOrFail($id);
+        $rekomendasi = Information::latest()
+            ->where('category_id', 3)   
+            ->where('id', '!=', $lowongan->id)
+            ->take(3)
+            ->get();
+        return view('guest.info-lowongan.show', compact('lowongan', 'rekomendasi'));
+    }
+    public function showBeasiswa()
+    {
+        $beasiswa = Scholarship::with('users')->get();
+        return view('guest.beasiswa.tampilan', compact('beasiswa'));
+    }
+
+    public function showBeasiswaDetail($id)
+    {
+        $beasiswa = Scholarship::with('users')->findOrFail($id);
+        $rekomendasi = Scholarship::latest()
+            ->where('id', '!=', $beasiswa->id)
+            ->take(3)
+            ->get();
+        return view('guest.beasiswa.show', compact('beasiswa', 'rekomendasi'));
+    }
+
+    public function showWarta()
+    {
+        $wartas = Warta::latest()->get();
+        return view('guest.warta.tampilan', [
+            'wartas' => $wartas,
+            'title' => 'Warta Gereja'
+        ]);
+    }
+
+    public function showKomisi()
+    {
+        $bidang = Bidang::all();
+        $keesaan = Komisi::with('users', 'bidangs')->where('bidang_id', 1)->get();
+        $pembinaan = Komisi::with('users', 'bidangs')->where('bidang_id', 2)->get();
+        $penatalayanan = Komisi::with('users', 'bidangs')->where('bidang_id', 3)->get();
+        $kesaksian = Komisi::with('users', 'bidangs')->where('bidang_id', 4)->get();
+        return view('guest.komisi.tampilan', compact('keesaan', 'pembinaan', 'penatalayanan', 'kesaksian', 'bidang'));
+    }
+
+    public function showKomisiDetail($id)
+    {
+        $komisi = Komisi::with('users', 'bidangs')->findOrFail($id);
+        return view('guest.komisi.show', compact('komisi'));
+    }
+
+    public function showPaduanSuara()
+    {
+        $paduan_suara = Choir::with('users')->get();
+        return view('guest.paduan-suara.tampilan', compact('paduan_suara'));
+    }
+
+    public function showPaduanSuaraDetail($id)
+    {
+        $paduan_suara = Choir::with('users')->findOrFail($id);
+        return view('guest.paduan-suara.show', compact('paduan_suara'));
+    }
+
+    public function showForm()
+    {
+        $forms = Form::with('category')->get();
+        return view('guest.formsakramen.tampilan', compact('forms'));
+    }
+}

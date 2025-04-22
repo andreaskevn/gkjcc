@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('scholarships', function (Blueprint $table) {
             $table->id();
             $table->string('scholarship_title');
-            $table->string('scholarship_description');
+            $table->longText('scholarship_description');
             $table->string('scholarship_head_cover');
             $table->string('scholarship_phone');
             $table->foreignId('user_id')->constrained(

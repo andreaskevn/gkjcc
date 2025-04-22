@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('choirs', function (Blueprint $table) {
             $table->id();
             $table->string('choir_name');
-            $table->string('choir_description');
+            $table->longText('choir_description');
             $table->string('choir_head_cover');
-            $table->string('choir_description_2');
-            $table->string('choir_pict');
+            $table->longText('choir_description_2');
+            $table->string('choir_pict')->nullable();
             $table->foreignId('user_id')->constrained(
                 table: 'users'
             );

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('commissions', function (Blueprint $table) {
             $table->id();
             $table->string('commission_name');
-            $table->string('commission_description');
+            $table->longText('commission_description');
             $table->string('commission_head_cover');
-            $table->string('commission_description_2');
-            $table->string('commission_pict');
+            $table->longText('commission_description_2');
+            $table->string('commission_pict')->nullable();
             $table->foreignId('user_id')->constrained(
                 table: 'users'
             );

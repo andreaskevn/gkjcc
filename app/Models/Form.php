@@ -12,5 +12,11 @@ class Form extends Model
     protected $fillable = [
         'form_name',
         'form_file',
+        'form_category_id',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(FormCategories::class, 'form_category_id');
+    }
 }

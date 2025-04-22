@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ubah Formulir</title>
+    <title>Ubah Formulir Sakramental</title>
     <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
@@ -21,32 +21,52 @@
         <div class="flex-1 flex flex-col md:ml-64">
             <!-- Header -->
             <div class="p-4 hidden md:block">
-                <h1 class="text-2xl font-bold text-gray-900">Ubah FOrmulir</h1>
+                <h1 class="text-2xl font-bold text-gray-900">Ubah Formulir Sakramental</h1>
             </div>
 
             <!-- Form Area -->
             <main class="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div class="w-full max-w-4xl bg-white p-10 rounded-2xl shadow-xl">
-                    <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Ubah Formulir</h2>
+                    <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Ubah Formulir Sakramental</h2>
 
                     <form action="{{ route('form.update', $form) }}" method="POST" enctype="multipart/form-data"
                         class="space-y-6">
                         @csrf
 
                         <div>
-                            <label for="form_name" class="block text-gray-700 text-sm font-medium">Nama Formulir</label>
+                            <label for="form_name" class="block text-gray-700 text-sm font-medium">Nama Formulir
+                                Sakramental</label>
                             <input type="text" name="form_name" id="form_name" value="{{ $form->form_name }}"
                                 required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                         </div>
 
+                        <div class="mb-4">
+                            <label for="form_category_id" class="block text-sm font-medium text-gray-700">
+                                Pilih Kategori Sakramental
+                            </label>
+                            <select name="form_category_id" id="form_category_id" required
+                                class="mt-1 block w-full px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">-- Pilih Kategori Sakramental --</option>
+                                @foreach ($category as $item)
+                                    <option value="{{ $item->id }}"
+                                        {{ $form->form_category_id == $item->id ? 'selected' : '' }}>
+                                        {{ $item->form_category_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+
                         <div class="col-span-full">
-                            <label for="file" class="block text-sm font-medium text-gray-900">File Formulir</label>
+                            <label for="file" class="block text-sm font-medium text-gray-900">File Formulir
+                                Sakramental</label>
                             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
                                 id="drop-area">
                                 <div class="text-center">
                                     <input id="file" name="file" type="file" class="sr-only"
-                                        accept=".pdf,.docx" >
+                                        accept=".pdf,.docx">
                                     <span id="file-upload-label">Unggah file atau drag n drop ke
                                         sini.</span>
                                 </div>

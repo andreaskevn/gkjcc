@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('form_name');
             $table->string('form_file');
+            $table->foreignId('form_category_id')->constrained('form_categories');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Formulir</title>
+    <title>Tambah Formulir Sakramental</title>
     <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
@@ -21,40 +21,52 @@
         <div class="flex-1 flex flex-col md:ml-64">
             <!-- Header -->
             <div class="p-4 hidden md:block">
-                <h1 class="text-2xl font-bold text-gray-900">Tambah Formulir</h1>
+                <h1 class="text-2xl font-bold text-gray-900">Tambah Formulir Sakramental</h1>
             </div>
 
             <!-- Form Area -->
             <main class="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div class="w-full max-w-4xl bg-white p-10 rounded-2xl shadow-xl">
-                    <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Tambah Formulir</h2>
+                    <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Tambah Formulir Sakramental</h2>
 
                     <form action="{{ route('form.store') }}" method="POST" enctype="multipart/form-data"
                         class="space-y-6">
                         @csrf
 
                         <div>
-                            <label for="form_name" class="block text-gray-700 text-sm font-medium">Nama Form</label>
+                            <label for="form_name" class="block text-gray-700 text-sm font-medium">Nama Form Sakramental</label>
                             <input type="text" name="form_name" id="form_name" value="{{ old('form_name') }}"
                                 required
-                                class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+
+                        <div>
+                            <label for="form_category_id" class="block text-gray-700 text-sm font-medium">Pilih
+                                Kategori Sakramental</label>
+                            <select name="form_category_id" id="form_category_id" required
+                                class="mt-1 block w-full px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">-- Pilih Kategori Sakramental--</option>
+                                @foreach ($category as $item)
+                                    <option value="{{ $item->id }}">{{ $item->form_category_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="col-span-full">
-                            <label for="file" class="block text-sm font-medium text-gray-900">File Warta</label>
+                            <label for="file" class="block text-sm font-medium text-gray-900">File Formulir Sakramental</label>
                             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
                                 id="drop-area">
                                 <div class="text-center">
                                     <input id="file" name="file" type="file" class="sr-only"
                                         accept=".pdf,.docx" required>
-                                    <span id="file-upload-label">Unggah file atau drag n drop ke
-                                        sini.</span>
+                                    <span id="file-upload-label" class="text-sm text-gray-600">Unggah file atau drag n
+                                        drop ke sini.</span>
                                 </div>
                             </div>
                             @if ($errors->any())
                                 <div>
                                     @foreach ($errors->all() as $error)
-                                        <p class="text-red-500">{{ $error }}</p>
+                                        <p class="text-red-500 text-sm mt-1">{{ $error }}</p>
                                     @endforeach
                                 </div>
                             @endif
@@ -64,17 +76,18 @@
 
                         <div class="mt-6 flex justify-between gap-4">
                             <button type="button" onclick="window.location='{{ route('form') }}'"
-                                class="w-full py-3 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out hover:bg-red-700">
+                                class="w-full py-3 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition">
                                 Cancel
                             </button>
                             <button type="submit"
-                                class="w-full py-3 px-4 bg-gray-900 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out hover:bg-gray-700">
+                                class="w-full py-3 px-4 bg-gray-900 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 transition">
                                 Simpan
                             </button>
                         </div>
                     </form>
                 </div>
             </main>
+
         </div>
 
         <!-- Overlay for mobile -->

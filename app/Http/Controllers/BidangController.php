@@ -45,7 +45,7 @@ class BidangController extends Controller
             'commission_name' => 'required|max:255',
             'commission_description' => 'required',
             'image1' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image2' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'commission_description_2' => 'required',
             'bidang_id' => 'required|exists:bidangs,id',
         ]);

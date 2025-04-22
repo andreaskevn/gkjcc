@@ -10,28 +10,43 @@ use App\Http\Controllers\{
     FormController,
     KategoriJadwalIbadahController,
     JadwalIbadahController,
-    JadwalSepekanController
+    JadwalSepekanController,
+    GuestController,
+    FormKategoriController
 };
+use App\Models\Information;
 
-Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard.dashboard');
-});
+// Route::get('/dashboard', function () {
+//     return view('dashboard.dashboard');
+// });
+Route::get('/', [GuestController::class, 'index'])->name('home');
+Route::get('/announcement/{id}', [GuestController::class, 'showPengumumanDetail'])->name('guestpengumuman.show');
+Route::get('/announcement', [GuestController::class, 'showPengumuman'])->name('guestpengumuman');
+Route::get('/news/{id}', [GuestController::class, 'showBeritaDetail'])->name('guestberita.show');
+Route::get('/news', [GuestController::class, 'showBerita'])->name('guestberita');
+Route::get('/vacancy/{id}', [GuestController::class, 'showLowonganDetail'])->name('guestlowongan.show');
+Route::get('/vacancy', [GuestController::class, 'showLowongan'])->name('guestlowongan');
+Route::get('/beasiswa/{id}', [GuestController::class, 'showBeasiswaDetail'])->name('guestbeasiswa.show');
+Route::get('/beasiswa', [GuestController::class, 'showBeasiswa'])->name('guestbeasiswa');
+Route::get('/wartafile', [GuestController::class, 'showWarta'])->name('guestwarta');
+Route::get('/komisi', [GuestController::class, 'showKomisi'])->name('guestkomisi');
+Route::get('/komisi/{id}', [GuestController::class, 'showKomisiDetail'])->name('guestkomisi.show');
+Route::get('/paduan-suara', [GuestController::class, 'showPaduanSuara'])->name('guestpaduansuara');
+Route::get('/paduan-suara/{id}', [GuestController::class, 'showPaduanSuaraDetail'])->name('guestpaduansuara.show');
+Route::get('/formsakramen', [GuestController::class, 'showForm'])->name('guestformsakramen');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
     // Route::get('/register', [RegisterController::class, 'create'])->name('register');
     // Route::post('/register', [RegisterController::class, 'store']);
+    // Route::get('/form', [GuestController::class, 'showForm'])->name('guestform');
+    // Route::get('/form/{id}', [GuestController::class, 'showFormDetail'])->name('guestform.show');
 });
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
     Route::get('/kategori-jadwalibadah', [KategoriJadwalIbadahController::class, 'index'])->name('kategori-jadwalibadah');
     Route::get('/kategori-jadwalibadah/create', [KategoriJadwalIbadahController::class, 'create'])->name('kategori-jadwalibadah.create');
     Route::post('/kategori-jadwalibadah/store', [KategoriJadwalIbadahController::class, 'store'])->name('kategori-jadwalibadah.store');
@@ -123,4 +138,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/form/update/{id}', [FormController::class, 'updateForm'])->name('form.update');
     Route::delete('/form/delete/{id}', [FormController::class, 'destroyForm'])->name('form.destroy');
     Route::get('/form/{id}', [FormController::class, 'showDetailForm'])->name('form.show');
+
+    // Route::resource('/kategori-form', FormKategoriController::class)->except('show');
+    Route::get('/kategori-form', [FormKategoriController::class, 'index'])->name('kategori-form');
+    Route::get('/kategori-form/create', [FormKategoriController::class, 'create'])->name('kategori-form.create');
+    Route::post('/kategori-form/store', [FormKategoriController::class, 'store'])->name('kategori-form.store');
+    Route::get('/kategori-form/edit/{id}', [FormKategoriController::class, 'edit'])->name('kategori-form.edit');
+    Route::post('/kategori-form/update/{id}', [FormKategoriController::class, 'update'])->name('kategori-form.update');
+    Route::delete('/kategori-form/delete/{id}', [FormKategoriController::class, 'destroy'])->name('kategori-form.destroy');
 });

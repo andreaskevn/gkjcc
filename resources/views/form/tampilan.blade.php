@@ -97,10 +97,10 @@
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
                             <div class="flex space-x-4">
                                 <div class="w-full md:w-auto">
-                                    <x-limit route="pengguna" />
+                                    <x-limit route="form" />
                                 </div>
                                 <div class="w-full sm:w-auto">
-                                    <x-search route="pengguna" />
+                                    <x-search route="form" />
                                 </div>
                             </div>
                         </div>
@@ -111,6 +111,7 @@
                                 <thead>
                                     <tr class="bg-gray-100 text-left text-sm font-semibold uppercase tracking-wide">
                                         <th class="py-3 px-6 text-left">Nama Formulir</th>
+                                        <th class="py-3 px-6 text-left">Kategori</th>
                                         <th class="py-3 px-6 text-left">Aksi</th>
                                     </tr>
                                 </thead>
@@ -118,6 +119,7 @@
                                     @foreach ($form as $item)
                                         <tr class="border-b border-gray-300 hover:bg-gray-50 transition duration-200">
                                             <td class="py-3 px-6">{{ $item->form_name }}</td>
+                                            <td class="py-3 px-6">{{ $item->category->form_category_name }}</td>
                                             <td class="py-3 px-6">
                                                 <a href="{{ route('form.edit', $item->id) }}"
                                                     class="bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Edit</a>

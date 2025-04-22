@@ -84,7 +84,7 @@ class InformasiController extends Controller
             $file = $request->file('image');
             $manager = new ImageManager(new Driver());
             $filename = time() . '.webp';
-            $image = $manager->read($file)->encode(new WebpEncoder(quality: 80));
+            $image = $manager->read($file);
             $image->save(public_path('img/' . $filename));
             $pengumuman->information_head_cover = $filename;
         }
@@ -254,7 +254,7 @@ class InformasiController extends Controller
             'user_id' => Auth::user()->id,
         ]);
 
-        return redirect()->route('berita')->with('success', 'Berita berhasil ditambahkan');
+        return redirect()->route('info-lowongan')->with('success', 'Berita berhasil ditambahkan');
     }
 
     public function editLowongan($id)

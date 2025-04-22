@@ -29,7 +29,7 @@
                 <div class="w-full max-w-4xl bg-white p-10 rounded-2xl shadow-xl">
                     <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Tambah Info Lowongan</h2>
 
-                    <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data"
+                    <form action="{{ route('info-lowongan.store') }}" method="POST" enctype="multipart/form-data"
                         class="space-y-6">
                         @csrf
 

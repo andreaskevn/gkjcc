@@ -427,7 +427,7 @@ class InformasiController extends Controller
     {
         $request->validate([
             'warta_title' => 'required|max:255',
-            'file' => 'required|mimes:docx,pdf|max:2048'
+            'file' => 'required|mimes:docx,pdf|max:10000'
         ]);
 
         // $file = $request->file('file');
@@ -458,7 +458,7 @@ class InformasiController extends Controller
     {
         $request->validate([
             'warta_title' => 'required|max:255',
-            'file' => 'required|mimes:docx,pdf|max:2048'
+            'file' => 'required|mimes:docx,pdf|max:10000'
         ]);
 
         $warta = Warta::with('users')->findOrFail($id);

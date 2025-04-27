@@ -1,6 +1,13 @@
 @extends('layouts.guest')
 
 @section('content')
+    <section class="relative bg-cover bg-center h-96 text-white flex items-center justify-center"
+        style="background-image: url('{{ asset('images/header.png') }}')">
+        <div class="absolute inset-0" style="background-color: rgba(13, 13, 13, 0.5);"></div>
+        <div class="relative text-center z-10">
+            <h1 class="text-6xl font-bold">Formulir Pelayanan Gerejawi</h1>
+        </div>
+    </section>
     <div class="max-w-5xl mx-auto py-10 px-4">
         @php
             $groupedForms = $forms->groupBy('form_category_id');
@@ -27,8 +34,8 @@
                                 <div class="text-black">
                                     @switch($extension)
                                         @case('pdf')
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600" viewBox="0 0 20 20"
-                                                fill="currentColor">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600"
+                                                viewBox="0 0 20 20" fill="currentColor">
                                                 <path
                                                     d="M17 6.414V16a2 2 0 01-2 2H5a2 2 0 01-2-2V4a2 2 0 012-2h6.586A2 2 0 0113 2.586l4 4zM7 9H5v2h2a1 1 0 000-2zm1 0v4h1v-1h1a1 1 0 000-2H8zm4 0v1h1v1h-1v1h-1V9h2z" />
                                             </svg>

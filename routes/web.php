@@ -34,6 +34,12 @@ Route::get('/komisi/{id}', [GuestController::class, 'showKomisiDetail'])->name('
 Route::get('/paduan-suara', [GuestController::class, 'showPaduanSuara'])->name('guestpaduansuara');
 Route::get('/paduan-suara/{id}', [GuestController::class, 'showPaduanSuaraDetail'])->name('guestpaduansuara.show');
 Route::get('/formsakramen', [GuestController::class, 'showForm'])->name('guestformsakramen');
+Route::get('visi-misi', function(){
+    return view('guest.visimisi.tampilan');
+});
+Route::get('/sejarah', function() {
+    return view ('guest.sejarah.tampilan');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

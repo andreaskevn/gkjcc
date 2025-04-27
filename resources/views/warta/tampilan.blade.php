@@ -216,8 +216,6 @@
             sidebar.classList.add('-translate-x-full');
             overlay.classList.add('hidden');
         });
-        // Handle search input change
-        // Fungsi untuk menangani pencarian dan pagination
         function updateMenus(page = 1, search = '', limit = '') {
             $.ajax({
                 url: '/pengguna', // Sesuaikan URL dengan rute controller
@@ -228,10 +226,6 @@
                     page: page
                 },
                 success: function(response) {
-                    // // Update menu list
-                    // $('#menuList').html(response.buku);
-
-                    // Update pagination links
                     $('#pagination').html(response.pagination);
                 }
             });

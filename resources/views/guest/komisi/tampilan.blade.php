@@ -1,10 +1,14 @@
 @extends('layouts.guest')
 
 @section('content')
+    <section class="relative bg-cover bg-center h-96 text-white flex items-center justify-center"
+        style="background-image: url('{{ asset('images/header.png') }}')">
+        <div class="absolute inset-0" style="background-color: rgba(13, 13, 13, 0.5);"></div>
+        <div class="relative text-center z-10">
+            <h1 class="text-6xl font-bold">Komisi</h1>
+        </div>
+    </section>
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-semibold text-center mb-6">Komisi</h1>
-
-        {{-- KEESAAN --}}
         @if ($keesaan->count())
             <div class="mb-6">
                 <div class="flex items-center mb-4">

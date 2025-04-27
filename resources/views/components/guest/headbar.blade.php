@@ -17,89 +17,109 @@
         <ul class="hidden md:flex space-x-6 font-medium text-gray-700 relative">
             <li><a href="/" class="hover:text-blue-600">Beranda</a></li>
             <li class="relative group">
-                <a href="#" class="hover:text-blue-600 inline-block">Profil Gereja</a>
+                <a href="#"
+                    class="inline-flex items-center gap-1 hover:text-blue-600 transition-colors duration-200">
+                    Profil Gereja
+                    <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:rotate-180"
+                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </a>
                 <ul
-                    class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-2xl shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 ease-in-out z-10">
+                    class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-xl shadow-xl opacity-0 group-hover:opacity-100 invisible group-hover:visible translate-y-1 group-hover:translate-y-0 transition-all duration-300 ease-out z-50 overflow-hidden">
                     <li>
-                        <a href="#"
-                            class="block px-4 py-2 rounded hover:text-gray-100 hover:bg-blue-800 transition-colors duration-200">
-                            Visi Misi
+                        <a href="/visi-misi"
+                            class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                            <span>Visi Misi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/sejarah"
+                            class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                            <span>Sejarah</span>
                         </a>
                     </li>
                     <li>
                         <a href="#"
-                            class="block px-4 py-2 rounded hover:text-gray-100 hover:bg-blue-800 transition-colors duration-200">
-                            Sejarah
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block px-4 py-2 rounded hover:text-gray-100 hover:bg-blue-800 transition-colors duration-200">
-                            Struktur Organisasi
+                            class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                            <span>Struktur Organisasi</span>
                         </a>
                     </li>
                 </ul>
             </li>
+
             <li class="relative group">
-                <a href="#" class="hover:text-blue-600 inline-block">Informasi</a>
+                <a href="#"
+                    class="inline-flex items-center gap-1 hover:text-blue-600 transition-colors duration-200">
+                    Informasi
+                    <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:rotate-180"
+                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </a>
                 <ul
-                    class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-2xl shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 ease-in-out z-10">
+                    class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-xl shadow-xl opacity-0 group-hover:opacity-100 invisible group-hover:visible translate-y-1 group-hover:translate-y-0 transition-all duration-300 ease-out z-50 overflow-hidden">
                     <li>
                         <a href="/announcement"
-                            class="block px-4 py-2 rounded hover:text-gray-100 hover:bg-blue-800 transition-colors duration-200">
-                            Pengumuman
+                            class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                            <span>Pengumuman</span>
                         </a>
                     </li>
                     <li>
                         <a href="/news"
-                            class="block px-4 py-2 rounded hover:text-gray-100 hover:bg-blue-800 transition-colors duration-200">
-                            Berita
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/wartafile"
-                            class="block px-4 py-2 rounded hover:text-gray-100 hover:bg-blue-800 transition-colors duration-200">
-                            Warta
+                            class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                            <span>Berita</span>
                         </a>
                     </li>
                     <li>
                         <a href="/vacancy"
-                            class="block px-4 py-2 rounded hover:text-gray-100 hover:bg-blue-800 transition-colors duration-200">
-                            Info Lowoongan
+                            class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                            <span>Info Lowongan</span>
                         </a>
                     </li>
                     <li>
                         <a href="/beasiswa"
-                            class="block px-4 py-2 rounded hover:text-gray-100 hover:bg-blue-800 transition-colors duration-200">
-                            Beasiswa
+                            class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                            <span>Beasiswa</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/wartafile"
+                            class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                            <span>Warta</span>
                         </a>
                     </li>
                 </ul>
             </li>
             <li class="relative group">
-                <a href="#" class="hover:text-blue-600 inline-block">Bidang</a>
+                <a href="#"
+                    class="inline-flex items-center gap-1 hover:text-blue-600 transition-colors duration-200">
+                    Bidang
+                    <svg class="w-4 h-4 transform transition-transform duration-200 group-hover:rotate-180"
+                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </a>
                 <ul
-                    class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-2xl shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 ease-in-out z-10">
+                    class="absolute left-0 mt-2 w-40 bg-white border border-gray-200 rounded-xl shadow-xl opacity-0 group-hover:opacity-100 invisible group-hover:visible translate-y-1 group-hover:translate-y-0 transition-all duration-300 ease-out z-50 overflow-hidden">
                     <li>
                         <a href="/komisi"
-                            class="block px-4 py-2 rounded hover:text-gray-100 hover:bg-blue-800 transition-colors duration-200">
-                            Komisi
+                            class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                            <span>Komisi</span>
                         </a>
                     </li>
                     <li>
                         <a href="/paduan-suara"
-                            class="block px-4 py-2 rounded hover:text-gray-100 hover:bg-blue-800 transition-colors duration-200">
-                            Paduan Suara
+                            class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                            <span>Paduan Suara</span>
                         </a>
                     </li>
                 </ul>
             </li>
             <li><a href="#" class="hover:text-blue-600">Homecare</a></li>
-            <li><a href="/formsakramen" class="hover:text-blue-600">Pelayanan Sakramental</a></li>
+            <li><a href="/formsakramen" class="hover:text-blue-600">Pelayanan Gerejawi</a></li>
         </ul>
 
-        </ul>
-        <!-- Icon menu mobile -->
         <div class="md:hidden">
             <button id="menu-icon" class="text-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"

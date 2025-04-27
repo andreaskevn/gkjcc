@@ -2,9 +2,9 @@
 
 <div
     class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col transform transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
-    <img src="{{ asset('img/' . $image) }}" alt="{{ $title }}" class="w-full h-48 object-cover">
+    <img src="{{ asset('img/' . $image) }}" alt="{{ $title }}" class="w-full h-40 object-cover">
 
-    <div class="p-5 flex-1 flex flex-col">
+    <div class="p-4 flex-1 flex flex-col"> <!-- Mengurangi padding -->
         <div class="text-xs text-gray-500 mb-2 flex items-center justify-between">
             <span>{{ \Carbon\Carbon::parse($date)->format('F j, Y') }}</span>
             @if ($category)
@@ -14,10 +14,8 @@
             @endif
         </div>
 
-        <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ $title }}</h3>
-
         <p class="text-gray-600 text-sm mb-4 flex-1">
-            {{ \Illuminate\Support\Str::words(strip_tags($description), 12, '...') }}
+            {{ \Illuminate\Support\Str::words(strip_tags($description), 10, '...') }}
         </p>
 
         <div class="flex justify-end">

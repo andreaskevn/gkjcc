@@ -11,7 +11,8 @@ use App\Models\{
     Warta,
     Bidang,
     Choir,
-    Form
+    Form,
+    WeeklySchedule
 };
 
 class GuestController extends Controller
@@ -20,8 +21,11 @@ class GuestController extends Controller
     {
         $pengumuman = Information::with('user', 'category')->where('category_id', 1)->latest()->take(3)->get();
         $berita = Information::with('user', 'category')->where('category_id', 2)->latest()->take(3)->get();
+        $lowongan = Information::with('user', 'category')->where('category_id', 3)->latest()->take(3)->get();
+        $beasiswa = Scholarship::with('users')->latest()->take(3)->get();
+        $jadwalsepekan = WeeklySchedule::all();
         $worshipSchedules = WorshipSchedule::all()->groupBy('category_id');
-        return view('home', compact('pengumuman', 'berita', 'worshipSchedules'));
+        return view('home', compact('pengumuman', 'berita', 'worshipSchedules', 'lowongan', 'beasiswa', 'jadwalsepekan'));
     }
 
     public function showPengumuman()
@@ -92,7 +96,7 @@ class GuestController extends Controller
 
     public function showWarta()
     {
-        $wartas = Warta::latest()->get();
+        $wartas = Warta::latest()->paginate(5);
         return view('guest.warta.tampilan', [
             'wartas' => $wartas,
             'title' => 'Warta Gereja'

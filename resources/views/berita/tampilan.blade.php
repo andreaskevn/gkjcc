@@ -117,81 +117,73 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($berita as $item)
-                                        <tr class="border-b border-gray-300 hover:bg-gray-50 transition duration-200">
-                                            <td class="py-3 px-6">{{ $item->information_title }}</td>
-                                            <td class="py-3 px-6">{{ $item->user->name }}</td>
-                                            <td class="py-3 px-6">
-                                                <a href="{{ route('berita.edit', $item->id) }}"
-                                                    class="bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Edit</a>
-                                                <a href="{{ route('berita.show', $item->id) }}"
-                                                    class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Lihat</a>
-                                                <form action="{{ route('berita.destroy', $item->id) }}"
-                                                    method="POST" class="inline delete-form">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button"
-                                                        class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 delete-button"
-                                                        data-id="{{ $item->id }}"
-                                                        data-name="{{ $item->information_title }}">Hapus</button>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                    <tr class="border-b border-gray-300 hover:bg-gray-50 transition duration-200">
+                                        <td class="py-3 px-6">{{ $item->information_title }}</td>
+                                        <td class="py-3 px-6">{{ $item->user->name }}</td>
+                                        <td class="py-3 px-6">
+                                            <a href="{{ route('berita.edit', $item->id) }}"
+                                                class="bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Edit</a>
+                                            <a href="{{ route('berita.show', $item->id) }}"
+                                                class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Lihat</a>
+                                            <form action="{{ route('berita.destroy', $item->id) }}"
+                                                method="POST" class="inline delete-form">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button"
+                                                    class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 delete-button"
+                                                    data-id="{{ $item->id }}"
+                                                    data-name="{{ $item->information_title }}">Hapus</button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
 
                         <!-- Mobile Card View -->
-                        {{-- <div class="block md:hidden">
-                            @foreach ($pengguna as $penggunas)
-                                <div class="bg-white rounded-lg shadow-md mb-4 p-4">
-                                    <div
-                                        style="display: grid; grid-template-columns: 120px auto; gap: 8px; text-align: left;">
-                                        <p><span class="font-semibold">Nama Lengkap</span></p>
-                                        <p><span class="font-semibold">: </span>{{ $penggunas->USERSFIRSTNAME }}
-                                            {{ $penggunas->USERSLASTNAME }}</p>
-                                        <p><span class="font-semibold">Status</span></p>
-                                        <p><span class="font-semibold">: </span>
-                                            {{ $penggunas->USERSSTATUS === 'A' ? 'Aktif' : ($penggunas->USERSSTATUS === 'T' ? 'Tidak Aktif' : $penggunas->USERSSTATUS) }}
-                                        </p>
-                                        <p><span class="font-semibold">Peran</span></p>
-                                        <p><span class="font-semibold">: </span>{{ $penggunas->roles->ROLESNAME }}</p>
-                                        <p><span class="font-semibold">Cabang</span></p>
-                                        <p><span class="font-semibold">: </span>{{ $penggunas->cabang->BRANCHESNAME }}
-                                        </p>
-                                        <p><span class="font-semibold">No. Reg</span></p>
-                                        <p><span class="font-semibold">: </span>{{ $penggunas->USERSNUMBER }}</p>
-                                        <p><span class="font-semibold">Email</span></p>
-                                        <p><span class="font-semibold">: </span>{{ $penggunas->USERSEMAIL }}</p>
-                                    </div>
-                                    <div class="flex gap-2 mt-4">
-                                        <a href="{{ route('pengguna.edit', $penggunas) }}"
-                                            class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 flex-1 text-center">Edit</a>
-                                        <form action="{{ route('pengguna.destroy', $penggunas->IDUSERS) }}"
-                                            method="POST" class="inline delete-form flex-1">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button"
-                                                class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 w-full delete-button"
-                                                data-id="{{ $penggunas->IDUSERS }}"
-                                                data-name="{{ $penggunas->USERSFIRSTNAME }} {{ $penggunas->USERSLASTNAME }}">Hapus</button>
-                                        </form>
-                                    </div>
+                        <div class="md:hidden">
+                            @foreach ($berita as $item)
+                            <div class="bg-white rounded-lg shadow-md mb-4 p-4">
+                                <div class="text-lg font-semibold text-gray-800 mb-2">
+                                    {{ $item->information_title }}
                                 </div>
+                                <div class="grid grid-cols-1 gap-4 text-left">
+                                    <p><span class="font-semibold">Cover:</span> {{ $item->information_head_cover }}</p>
+                                    <p><span class="font-semibold">Dibuat oleh:</span> {{ $item->user->name }}</p>
+                                </div>
+                                <div class="flex gap-2 mt-4">
+                                    <a href="{{ route('berita.edit', $item) }}"
+                                        class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 flex-1 text-center">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('berita.destroy', $item->id) }}" method="POST" class="inline delete-form flex-1">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button"
+                                            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 w-full delete-button"
+                                            data-id="{{ $item->id }}" data-name="{{ $item->information_title }}">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                             @endforeach
-                        </div> --}}
-
-                        <!-- Pagination -->
-                        <div class="mt-6 flex justify-center">
-                            {{ $berita->appends(['search' => request('search'), 'limit' => request('limit')])->links('pagination::tailwind') }}
                         </div>
                     </div>
-                </div>
-            </main>
-        </div>
 
-        <!-- Overlay for Sidebar -->
-        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+                    <!-- Pagination -->
+                    <div class="mt-6 flex justify-center">
+                        {{ $berita->appends(['search' => request('search'), 'limit' => request('limit')])->links('pagination::tailwind') }}
+                    </div>
+                </div>
+        </div>
+        </main>
+    </div>
+
+    <!-- Overlay for Sidebar -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
     </div>
     <script>
         // Toggle Sidebar

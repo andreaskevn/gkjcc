@@ -259,7 +259,7 @@ class InformasiController extends Controller
 
     public function editLowongan($id)
     {
-        $lowongan = Information::with('user', 'category')->where('category_id', 2)->findOrFail($id);
+        $lowongan = Information::with('user', 'category')->where('category_id', 3)->findOrFail($id);
         return view('info-lowongan.edit', compact('lowongan'));
     }
 

@@ -10,10 +10,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
-<body class="flex min-h-screen">
+<body class="flex flex-col md:flex-row min-h-screen">
     <!-- Form Login -->
-    <div class="w-1/2 flex items-center justify-center bg-white">
-        <form id="loginForm" class="w-3/4 max-w-md">
+    <div class="w-full md:w-1/2 flex items-center justify-center bg-white p-8">
+        <form id="loginForm" class="w-full max-w-md">
             <h2 class="text-3xl font-bold mb-8 text-center">Login</h2>
 
             <label class="block mb-1 text-sm font-medium">Email:</label>
@@ -32,7 +32,9 @@
     </div>
 
     <!-- Right Side Image -->
-    <div class="w-1/2 h-screen bg-cover bg-center" style="background-image: url('img/login-hero.png');"></div>
+    <div class="hidden md:flex w-1/2 items-center justify-center bg-gray-100">
+        <img src="img/login-hero.png" alt="Login Hero" class="w-[665px] h-[832px] object-cover" />
+    </div>
 
     <script>
         $.ajaxSetup({

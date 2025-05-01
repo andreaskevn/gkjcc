@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Warta</title>
-    <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
+    <link rel="icon" href="{{ asset('images/logo.webp') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
@@ -39,6 +39,9 @@
                             <input type="text" name="warta_title" id="warta_title" value="{{ old('warta_title') }}"
                                 required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('warta_title')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="col-span-full">
@@ -61,6 +64,9 @@
                             @endif
 
                             <p class="mt-1 text-xs text-gray-600">PDF, DOCX, hingga 5MB</p>
+                            @error('file')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mt-6 flex justify-between gap-4">

@@ -22,7 +22,7 @@
             <!-- Lokasi dan tanggal -->
             <p class="text-sm text-gray-600 mb-6">
                 {{ $warta->users->name ?? 'Unknown' }} –
-                {{ $warta->created_at->locale('id')->translatedFormat('l, d F Y') }}
+                {{ $warta->created_at ? $warta->created_at->locale('id')->translatedFormat('l, d F Y') : 'Suatu Hari' }}
             </p>
 
             @if ($warta->warta_file && Str::endsWith($warta->warta_file, '.pdf'))

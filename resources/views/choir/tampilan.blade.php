@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GKJCC | Paduan Suara</title>
-    <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
+    <link rel="icon" href="{{ asset('images/logo.webp') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -26,7 +26,7 @@
             <x-sidebar></x-sidebar>
         </div>
 
-        <div class="flex-1 flex flex-col md:ml-64">
+        <div class="flex-1 flex flex-col md:ml-64 h-screen overflow-y-auto">
             <!-- Mobile Header -->
             <header
                 class="bg-white shadow-md p-4 flex justify-between items-center md:hidden fixed top-0 left-0 right-0 z-40">
@@ -42,7 +42,6 @@
                     <!-- Profile Button -->
                     <button @click="open = !open"
                         class="flex items-center px-4 py-2 bg-white rounded-lg shadow font-poppins space-x-3">
-                        <img src="{{ asset('putin.jpeg') }}" alt="Profile Picture" class="w-10 h-10 rounded-full">
                         <div class="ml-3 text-left">
                             <p class="font-bold">{{ Auth::user()->name }}</p>
                             <p class="font-semibold">{{ Auth::user()->role->role_name }}</p>
@@ -74,8 +73,8 @@
                 <x-header-dashboard>Paduan Suara</x-header-dashboard>
             </div>
 
-            <main class="p-4 pt-24 md:pt-0">
-                <div class="bg-white shadow-xl rounded-2xl overflow-hidden mb-6">
+            <main class="p-5 pt-24 pb-20 min-h-screen md:pt-0">
+                <div class="bg-white shadow-sm rounded-2xl overflow-auto mt-5 md:mt-0">
                     <!-- Gradient Header -->
                     <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6">
                         <div class="flex justify-between items-center">
@@ -87,7 +86,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
-                                Tambah Paduan Suara
+                                Tambah
                             </a>
                         </div>
                     </div>
@@ -95,12 +94,12 @@
                     <div class="p-6">
                         <!-- Search and Limit Controls -->
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
-                            <div class="flex space-x-4">
-                                <div class="w-full md:w-auto">
-                                    <x-limit route="pengguna" />
+                            <div class="flex flex-wrap gap-4 w-full">
+                                <div class="md:w-auto">
+                                    <x-limit route="choir" />
                                 </div>
-                                <div class="w-full sm:w-auto">
-                                    <x-search route="pengguna" />
+                                <div class="sm:w-auto">
+                                    <x-search route="choir" />
                                 </div>
                             </div>
                         </div>
@@ -142,9 +141,9 @@
                         </div>
 
                         <!-- Mobile Card View -->
-                        <div class="block md:hidden">
+                        <div class="block md:hidden w-full max-w-screen-sm mx-auto mt-3">
                             @foreach ($choir as $item)
-                            <div class="bg-white rounded-lg shadow-md mb-4 p-4">
+                            <div class="bg-white rounded-lg shadow-md mb-3 p-3 text-sm">
                                 <div class="text-lg font-semibold text-gray-800 mb-2">
                                     {{ $item->choir_name }}
                                 </div>
@@ -152,16 +151,18 @@
                                     <p><span class="font-semibold">Dibuat oleh:</span> {{ $item->users->name }}</p>
                                 </div>
                                 <div class="flex gap-2 mt-4">
-                                    <a href="{{ route('commission.edit', $item) }}"
+                                    <a href="{{ route('choir.edit', $item) }}"
                                         class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 flex-1 text-center">
                                         Edit
                                     </a>
-                                    <form action="{{ route('commission.destroy', $item->id) }}" method="POST" class="inline delete-form flex-1">
+                                    <a href="{{ route('choir.show', $item->id) }}"
+                                        class="bg-blue-500 text-white px-3 py-1.5 rounded-lg hover:bg-blue-600 transition duration-300 flex-1 text-center text-sm">Lihat</a>
+                                    <form action="{{ route('choir.destroy', $item->id) }}" method="POST" class="inline delete-form flex-1">
                                         @csrf
                                         @method('DELETE')
                                         <button type="button"
                                             class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 w-full delete-button"
-                                            data-id="{{ $item->id }}" data-name="{{ $item->information_title }}">
+                                            data-id="{{ $item->id }}" data-name="{{ $item->choir_name }}">
                                             Hapus
                                         </button>
                                     </form>
@@ -248,7 +249,7 @@
 
                     // Tampilkan konfirmasi penghapusan
                     Swal.fire({
-                        title: `Apakah anda yakin ingin menghapus pengguna ${penggunaName}?`,
+                        title: `Apakah anda yakin ingin menghapus paduan suara ${penggunaName}?`,
                         text: "Data tidak dapat dikembalikan setelah dihapus!",
                         icon: "warning",
                         showCancelButton: true,

@@ -7,6 +7,18 @@
     <title>{{ $pengumuman->information_title }}</title>
     <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <script>
+        function copyLink() {
+            const dummy = document.createElement("input");
+            dummy.value = window.location.href;
+            document.body.appendChild(dummy);
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            alert("Link berhasil disalin!");
+        }
+    </script>
 </head>
 
 <body class="bg-gray-100 text-gray-800">
@@ -19,26 +31,37 @@
                 {{ $pengumuman->information_title }}
             </h1>
 
-            <!-- Lokasi dan tanggal -->
+            <!-- Penulis dan Tanggal -->
             <p class="text-sm text-gray-600 mb-6">
-                {{ $pengumuman->user->name ?? 'Unknown' }} – {{ $pengumuman->created_at->locale('id')->translatedFormat('l, d F Y') }}
+                {{ $pengumuman->user->name ?? 'Unknown' }} –
+                {{ $pengumuman->created_at->locale('id')->translatedFormat('l, d F Y') }}
             </p>
 
-            <!-- Gambar -->
+            <!-- Gambar Cover -->
             @if ($pengumuman->information_head_cover)
                 <img src="{{ asset('img/' . $pengumuman->information_head_cover) }}" alt="Cover Pengumuman"
                     class="w-full rounded-lg mb-6 shadow-md object-cover">
             @endif
 
             <!-- Deskripsi -->
-            <div class="text-base leading-relaxed space-y-4 text-justify">
+            <div class="text-base leading-relaxed space-y-4 text-justify mb-6">
                 {!! nl2br(e($pengumuman->information_description)) !!}
+            </div>
+
+            <!-- Tombol Aksi -->
+            <div class="flex justify-between items-center mt-4">
+                <a href="{{ route('pengumuman') }}"
+                    class="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 text-sm">← Kembali</a>
+
+                <button onclick="copyLink()"
+                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm">Bagikan</button>
             </div>
 
             <!-- Footer -->
             <footer class="text-center text-xs text-gray-500 mt-12 pt-6 border-t">
                 COPYRIGHT ©{{ now()->year }}, GKJCC, ALL RIGHTS RESERVED
             </footer>
+
         </div>
     </div>
 

@@ -29,8 +29,8 @@
                 <div class="w-full max-w-4xl bg-white p-10 rounded-2xl shadow-xl">
                     <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Tambah Jadwal Ibadah</h2>
 
-                    <form action="{{ route('kategori-jadwalibadah.store') }}" method="POST" enctype="multipart/form-data"
-                        class="space-y-6">
+                    <form action="{{ route('kategori-jadwalibadah.store') }}" method="POST"
+                        enctype="multipart/form-data" class="space-y-6">
                         @csrf
 
                         <div>
@@ -41,6 +41,9 @@
                                 id="worship_schedule_category_name" value="{{ old('worship_schedule_category_name') }}"
                                 required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('worship_schedule_category_name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
 

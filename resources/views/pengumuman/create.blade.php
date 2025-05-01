@@ -39,6 +39,9 @@
                             <input type="text" name="information_title" id="information_title"
                                 value="{{ old('information_title') }}" required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('information_title')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
@@ -65,6 +68,9 @@
                                 </div>
                             </div>
                             <p class="mt-1 text-xs text-gray-600">PNG, JPG, hingga 5MB</p>
+                            @error('image')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mt-6 flex justify-between gap-4">

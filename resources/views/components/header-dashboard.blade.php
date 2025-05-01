@@ -10,7 +10,6 @@
             <!-- Tombol Profile -->
             <button @click="open = !open"
                 class="flex items-center px-4 py-2 bg-white rounded-lg shadow font-poppins space-x-3">
-                <img src="{{ asset('putin.jpeg') }}" alt="Profile Picture" class="w-10 h-10 rounded-full">
                 <div class="ml-3 text-left">
                     <p class="font-bold">{{ Auth::user()->name }}</p>
                     <p class="font-semibold">{{ Auth::user()->role->role_name }}</p>

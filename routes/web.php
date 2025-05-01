@@ -44,10 +44,6 @@ Route::get('/sejarah', function() {
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
-    // Route::get('/register', [RegisterController::class, 'create'])->name('register');
-    // Route::post('/register', [RegisterController::class, 'store']);
-    // Route::get('/form', [GuestController::class, 'showForm'])->name('guestform');
-    // Route::get('/form/{id}', [GuestController::class, 'showFormDetail'])->name('guestform.show');
 });
 
 Route::middleware('auth')->group(function () {

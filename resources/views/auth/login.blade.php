@@ -10,13 +10,18 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
-<body class="flex flex-col md:flex-row min-h-screen">
-    <!-- Form Login -->
-    <div class="w-full md:w-1/2 flex items-center justify-center bg-white p-8">
-        <form id="loginForm" class="w-full max-w-md">
-            <h2 class="text-3xl font-bold mb-8 text-center">Login</h2>
+<body class="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+    <div
+        class="w-full max-w-xl bg-white rounded-lg shadow-lg p-8 min-h-screen flex flex-col justify-center md:min-h-0 md:mt-12">
+        <!-- Logo dan Judul -->
+        <div class="flex flex-col items-center mb-6">
+            <img src="images/logo.webp" alt="Logo" class="w-32 h-32 mb-4">
+            <h1 class="text-blue-800 text-lg font-medium leading-tight text-center">GKJ Condongcatur</h1>
+            <h2 class="text-black text-3xl font-bold text-center">Login</h2>
+        </div>
 
-            <label class="block mb-1 text-sm font-medium">Email:</label>
+        <!-- Form Login -->
+        <form id="loginForm" class="space-y-6">
             <input type="email" name="email" required
                 class="w-full px-4 py-3 border border-blue-300 rounded-md bg-blue-50" placeholder="Email" />
 
@@ -24,15 +29,11 @@
                 class="w-full px-4 py-3 border border-blue-300 rounded-md bg-blue-50" placeholder="Password" />
 
             <button type="submit"
-                class="w-full py-3 bg-gradient-to-r from-indigo-900 to-blue-500 text-white font-semibold rounded-md hover:from-indigo-800 hover:to-blue-800 transition">LOG IN</button>
+                class="w-full py-3 bg-gradient-to-r from-indigo-900 to-blue-500 text-white font-semibold rounded-md hover:from-indigo-800 hover:to-blue-800 transition">LOG
+                IN</button>
 
             <p id="responseMsg" class="text-sm mt-2 text-center"></p>
         </form>
-    </div>
-
-    <!-- Right Side Image -->
-    <div class="hidden md:flex w-1/2 items-center justify-center bg-gray-100">
-        <img src="img/login-hero.png" alt="Login Hero" class="w-[665px] h-[832px] object-cover" />
     </div>
 
     <script>

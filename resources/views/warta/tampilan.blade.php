@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GKJCC | Warta</title>
-    <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
+    <link rel="icon" href="{{ asset('images/logo.webp') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -20,14 +20,12 @@
 
 <body class="bg-gray-50 font-sans leading-normal tracking-normal">
     <div class="flex min-h-screen relative">
-        <!-- Sidebar -->
         <div id="sidebar"
             class="fixed inset-y-0 left-0 bg-gray-900 text-white w-64 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50">
             <x-sidebar></x-sidebar>
         </div>
 
-        <div class="flex-1 flex flex-col md:ml-64">
-            <!-- Mobile Header -->
+        <div class="flex-1 flex flex-col md:ml-64 h-screen overflow-y-auto">
             <header
                 class="bg-white shadow-md p-4 flex justify-between items-center md:hidden fixed top-0 left-0 right-0 z-40">
                 <button id="hamburger" class="text-gray-900 focus:outline-none">
@@ -39,10 +37,8 @@
                 </button>
                 <h1 class="text-lg font-semibold">GKJCC | Warta</h1>
                 <div class="relative" x-data="{ open: false }">
-                    <!-- Profile Button -->
                     <button @click="open = !open"
                         class="flex items-center px-4 py-2 bg-white rounded-lg shadow font-poppins space-x-3">
-                        <img src="{{ asset('putin.jpeg') }}" alt="Profile Picture" class="w-10 h-10 rounded-full">
                         <div class="ml-3 text-left">
                             <p class="font-bold">{{ Auth::user()->name }}</p>
                             <p class="font-semibold">{{ Auth::user()->role->role_name }}</p>
@@ -53,7 +49,6 @@
                         </svg>
                     </button>
 
-                    <!-- Dropdown Menu -->
                     <div x-show="open" @click.away="open = false" x-transition
                         class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
                         <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
@@ -69,14 +64,12 @@
                 </div>
             </header>
 
-            <!-- Desktop Header -->
             <div class="p-4 hidden md:block">
                 <x-header-dashboard>Warta</x-header-dashboard>
             </div>
 
-            <main class="p-4 pt-24 md:pt-0">
-                <div class="bg-white shadow-xl rounded-2xl overflow-hidden mb-6">
-                    <!-- Gradient Header -->
+            <main class="p-5 pt-24 pb-20 min-h-screen md:pt-0">
+                <div class="bg-white shadow-xl rounded-2xl overflow-auto mt-5 md:mt-0">
                     <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6">
                         <div class="flex justify-between items-center">
                             <h1 class="text-2xl font-bold text-white">Daftar Warta</h1>
@@ -87,25 +80,23 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
-                                Tambah Warta
+                                Tambah
                             </a>
                         </div>
                     </div>
 
                     <div class="p-6">
-                        <!-- Search and Limit Controls -->
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
-                            <div class="flex space-x-4">
+                            <div class="flex flex-wrap gap-4 w-full">
                                 <div class="w-full md:w-auto">
-                                    <x-limit route="pengguna" />
+                                    <x-limit route="warta" />
                                 </div>
                                 <div class="w-full sm:w-auto">
-                                    <x-search route="pengguna" />
+                                    <x-search route="warta" />
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Desktop Table -->
                         <div class="overflow-x-auto">
                             <table class="w-full hidden md:table">
                                 <thead>
@@ -120,26 +111,30 @@
                                         <tr class="border-b border-gray-300 hover:bg-gray-50 transition duration-200">
                                             <td class="py-3 px-6">{{ $item->warta_title }}</td>
                                             <td class="py-3 px-6">{{ $item->users->name }}</td>
-                                            <td class="py-3 px-6">
+                                            <td class="py-3 px-6 space-x-1">
                                                 @if ($item->warta_file)
                                                     <a href="{{ asset('uploads/' . $item->warta_file) }}"
-                                                        class="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600"
+                                                        class="inline-block bg-green-500 text-white text-sm px-3 py-1 rounded w-24 text-center hover:bg-green-600"
                                                         download>
                                                         Download
                                                     </a>
                                                 @endif
+
                                                 <a href="{{ route('warta.edit', $item->id) }}"
-                                                    class="bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Edit</a>
-                                                <a href="{{ route('warta.show', $item->id) }}"
-                                                    class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Lihat</a>
+                                                    class="inline-block bg-yellow-500 text-white text-sm px-3 py-1 rounded w-24 text-center hover:bg-yellow-600">
+                                                    Edit
+                                                </a>
+
                                                 <form action="{{ route('warta.destroy', $item->id) }}" method="POST"
                                                     class="inline delete-form">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button"
-                                                        class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 delete-button"
+                                                        class="inline-block bg-red-500 text-white text-sm px-3 py-1 rounded w-24 text-center hover:bg-red-600 delete-button"
                                                         data-id="{{ $item->id }}"
-                                                        data-name="{{ $item->warta_title }}">Hapus</button>
+                                                        data-name="{{ $item->warta_title }}">
+                                                        Hapus
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -148,32 +143,42 @@
                             </table>
                         </div>
 
-                        <!-- Mobile Card View -->
                         <div class="block md:hidden">
                             @foreach ($warta as $item)
-                            <div class="bg-white rounded-lg shadow-md mb-4 p-4">
-                                <div class="text-lg font-semibold text-gray-800 mb-2">
-                                    {{ $item->warta_title }}
+                                <div class="bg-white rounded-lg shadow-md mb-4 p-4">
+                                    <div class="text-lg font-semibold text-gray-800 mb-2">
+                                        {{ $item->warta_title }}
+                                    </div>
+                                    <div class="grid grid-cols-1 gap-4 text-left">
+                                        <p><span class="font-semibold">Dibuat oleh:</span> {{ $item->users->name }}
+                                        </p>
+                                    </div>
+                                    <div class="flex flex-col gap-2 mt-4 sm:flex-row">
+                                        @if ($item->warta_file)
+                                            <a href="{{ asset('uploads/' . $item->warta_file) }}"
+                                                class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300 flex-1 text-center text-sm"
+                                                download>
+                                                Download
+                                            </a>
+                                        @endif
+
+                                        <a href="{{ route('warta.edit', $item) }}"
+                                            class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 flex-1 text-center text-sm">
+                                            Edit
+                                        </a>
+
+                                        <form action="{{ route('warta.destroy', $item->id) }}" method="POST"
+                                            class="inline delete-form flex-1">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button"
+                                                class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 w-full text-sm delete-button"
+                                                data-id="{{ $item->id }}" data-name="{{ $item->warta_title }}">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="grid grid-cols-1 gap-4 text-left">
-                                    <p><span class="font-semibold">Dibuat oleh:</span> {{ $item->users->name }}</p>
-                                </div>
-                                <div class="flex gap-2 mt-4">
-                                    <a href="{{ route('warta.edit', $item) }}"
-                                        class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 flex-1 text-center">
-                                        Edit
-                                    </a>
-                                    <form action="{{ route('warta.destroy', $item->id) }}" method="POST" class="inline delete-form flex-1">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button"
-                                            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 w-full delete-button"
-                                            data-id="{{ $item->id }}" data-name="{{ $item->information_title }}">
-                                            Hapus
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
                             @endforeach
                         </div>
 
@@ -205,6 +210,7 @@
             sidebar.classList.add('-translate-x-full');
             overlay.classList.add('hidden');
         });
+
         function updateMenus(page = 1, search = '', limit = '') {
             $.ajax({
                 url: '/pengguna', // Sesuaikan URL dengan rute controller
@@ -249,7 +255,7 @@
 
                     // Tampilkan konfirmasi penghapusan
                     Swal.fire({
-                        title: `Apakah anda yakin ingin menghapus pengguna ${penggunaName}?`,
+                        title: `Apakah anda yakin ingin menghapus ${penggunaName}?`,
                         text: "Data tidak dapat dikembalikan setelah dihapus!",
                         icon: "warning",
                         showCancelButton: true,

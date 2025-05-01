@@ -7,6 +7,18 @@
     <title>{{ $berita->information_title }}</title>
     <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <script>
+        function copyLink() {
+            const dummy = document.createElement("input");
+            dummy.value = window.location.href;
+            document.body.appendChild(dummy);
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            alert("Link berhasil disalin!");
+        }
+    </script>
 </head>
 
 <body class="bg-gray-100 text-gray-800">
@@ -14,31 +26,36 @@
     <div class="min-h-screen flex justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl w-full bg-white p-8 rounded-lg shadow-lg">
 
-            <!-- Judul -->
             <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                 {{ $berita->information_title }}
             </h1>
 
-            <!-- Lokasi dan tanggal -->
             <p class="text-sm text-gray-600 mb-6">
-                {{ $berita->user->name ?? 'Unknown' }} – {{ $berita->created_at->locale('id')->translatedFormat('l, d F Y') }}
+                {{ $berita->user->name ?? 'Unknown' }} –
+                {{ $berita->created_at->locale('id')->translatedFormat('l, d F Y') }}
             </p>
 
-            <!-- Gambar -->
             @if ($berita->information_head_cover)
-                <img src="{{ asset('img/' . $berita->information_head_cover) }}" alt="Cover Berita"
+                <img src="{{ asset('img/' . $berita->information_head_cover) }}" alt="Cover berita"
                     class="w-full rounded-lg mb-6 shadow-md object-cover">
             @endif
 
-            <!-- Deskripsi -->
-            <div class="text-base leading-relaxed space-y-4 text-justify">
+            <div class="text-base leading-relaxed space-y-4 text-justify mb-6">
                 {!! nl2br(e($berita->information_description)) !!}
             </div>
 
-            <!-- Footer -->
+            <div class="flex justify-between items-center mt-4">
+                <a href="{{ route('berita') }}"
+                    class="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 text-sm">← Kembali</a>
+
+                <button onclick="copyLink()"
+                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm">Bagikan</button>
+            </div>
+
             <footer class="text-center text-xs text-gray-500 mt-12 pt-6 border-t">
                 COPYRIGHT ©{{ now()->year }}, GKJCC, ALL RIGHTS RESERVED
             </footer>
+
         </div>
     </div>
 

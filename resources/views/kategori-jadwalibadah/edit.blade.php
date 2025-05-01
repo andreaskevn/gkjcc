@@ -34,11 +34,16 @@
                         @csrf
 
                         <div>
-                            <label for="worship_schedule_category_name" class="block text-gray-700 text-sm font-medium">Nama
+                            <label for="worship_schedule_category_name"
+                                class="block text-gray-700 text-sm font-medium">Nama
                                 Kategori</label>
-                            <input type="text" name="worship_schedule_category_name" id="worship_schedule_category_name"
+                            <input type="text" name="worship_schedule_category_name"
+                                id="worship_schedule_category_name"
                                 value="{{ $category->worship_schedule_category_name }}" required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('worship_schedule_category_name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mt-6 flex justify-between gap-4">

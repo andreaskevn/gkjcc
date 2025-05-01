@@ -39,19 +39,27 @@
                             <input type="text" name="commission_name" id="comssisions_name"
                                 value="{{ old('commission_name') }}" required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('commission_name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mb-4">
                             <label for="bidang_id" class="block text-sm font-medium text-gray-700">Pilih Bidang</label>
                             <select name="bidang_id" id="bidang_id" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 <option value="">-- Pilih Bidang --</option>
                                 @foreach ($bidangs as $bidang)
-                                    <option value="{{ $bidang->id }}">{{ $bidang->bidang_name }}</option>
+                                    <option value="{{ $bidang->id }}"
+                                        {{ old('bidang_id') == $bidang->id ? 'selected' : '' }}>
+                                        {{ $bidang->bidang_name }}
+                                    </option>
                                 @endforeach
                             </select>
+                            @error('bidang_id')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
-
 
                         <div>
                             <label for="commission_description"
@@ -75,6 +83,9 @@
                                         sini.</span>
                                 </div>
                             </div>
+                            @error('image1')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
@@ -89,17 +100,20 @@
                         </div>
 
                         <div class="col-span-full">
-                            <label for="image2" class="block text-sm font-medium text-gray-900">Gambar Kegiatan
+                            <label for="image2" class="block text-sm font-medium text-gray-900">Dokumentasi Kegiatan
                                 Komisi</label>
                             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
                                 id="drop-area-2">
                                 <div class="text-center">
-                                    <input id="image2" name="image2" type="file" class="sr-only" accept="image/*"
-                                        >
+                                    <input id="image2" name="image2" type="file" class="sr-only"
+                                        accept="image/*">
                                     <span id="file-upload-label-2">Unggah gambar untuk kegiatan atau drag n drop ke
                                         sini.</span>
                                 </div>
                             </div>
+                            @error('image2')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mt-6 flex justify-between gap-4">

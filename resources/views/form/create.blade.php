@@ -5,26 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Formulir Sakramental</title>
-    <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
+    <link rel="icon" href="{{ asset('images/logo.webp') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100 font-sans">
     <div class="flex min-h-screen relative">
-        <!-- Sidebar -->
         <div id="sidebar"
             class="fixed inset-y-0 left-0 bg-gray-900 text-white w-64 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50">
             <x-sidebar></x-sidebar>
         </div>
 
-        <!-- Main Content -->
         <div class="flex-1 flex flex-col md:ml-64">
-            <!-- Header -->
             <div class="p-4 hidden md:block">
                 <h1 class="text-2xl font-bold text-gray-900">Tambah Formulir Sakramental</h1>
             </div>
 
-            <!-- Form Area -->
             <main class="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div class="w-full max-w-4xl bg-white p-10 rounded-2xl shadow-xl">
                     <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Tambah Formulir Sakramental</h2>
@@ -34,10 +30,14 @@
                         @csrf
 
                         <div>
-                            <label for="form_name" class="block text-gray-700 text-sm font-medium">Nama Form Sakramental</label>
+                            <label for="form_name" class="block text-gray-700 text-sm font-medium">Nama Form
+                                Sakramental</label>
                             <input type="text" name="form_name" id="form_name" value="{{ old('form_name') }}"
                                 required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('form_name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
@@ -47,13 +47,20 @@
                                 class="mt-1 block w-full px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 <option value="">-- Pilih Kategori Sakramental--</option>
                                 @foreach ($category as $item)
-                                    <option value="{{ $item->id }}">{{ $item->form_category_name }}</option>
+                                    <option value="{{ $item->id }}"
+                                        {{ old('form_category_id') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->form_category_name }}
+                                    </option>
                                 @endforeach
                             </select>
+                            @error('form_category_id')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="col-span-full">
-                            <label for="file" class="block text-sm font-medium text-gray-900">File Formulir Sakramental</label>
+                            <label for="file" class="block text-sm font-medium text-gray-900">File Formulir
+                                Sakramental</label>
                             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
                                 id="drop-area">
                                 <div class="text-center">
@@ -63,15 +70,10 @@
                                         drop ke sini.</span>
                                 </div>
                             </div>
-                            @if ($errors->any())
-                                <div>
-                                    @foreach ($errors->all() as $error)
-                                        <p class="text-red-500 text-sm mt-1">{{ $error }}</p>
-                                    @endforeach
-                                </div>
-                            @endif
-
                             <p class="mt-1 text-xs text-gray-600">PDF, DOCX, hingga 5MB</p>
+                            @error('file')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mt-6 flex justify-between gap-4">

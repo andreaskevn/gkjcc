@@ -1,4 +1,4 @@
-<footer class="bg-gray-900 text-white mt-1 pt-10 pb-6">
+<footer class="bg-gray-900 text-white mt-6 pt-10 pb-6">
     <div class="container mx-auto px-7 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
         <div>
             <h2 class="text-xl font-semibold mb-2">GKJ CONDONGCATUR</h2>

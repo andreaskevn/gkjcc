@@ -39,6 +39,9 @@
                             <input type="text" name="scholarship_title" id="scholarship_title"
                                 value="{{ old('scholarship_title') }}" required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('scholarship_title')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
@@ -65,13 +68,20 @@
                                 </div>
                             </div>
                             <p class="mt-1 text-xs text-gray-600">PNG, JPG, hingga 5MB</p>
+                            @error('image')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
-                            <label for="scholarship_phone" class="block text-gray-700 text-sm font-medium">Nomor PIC Beasiswa</label>
+                            <label for="scholarship_phone" class="block text-gray-700 text-sm font-medium">Nomor PIC
+                                Beasiswa</label>
                             <input type="text" name="scholarship_phone" id="scholarship_phone"
                                 value="{{ old('scholarship_phone') }}" required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                @error('scholarship_phone')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mt-6 flex justify-between gap-4">

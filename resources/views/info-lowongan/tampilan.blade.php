@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GKJCC | Info Lowongan</title>
-    <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
+    <link rel="icon" href="{{ asset('images/logo.webp') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -26,8 +26,7 @@
             <x-sidebar></x-sidebar>
         </div>
 
-        <div class="flex-1 flex flex-col md:ml-64">
-            <!-- Mobile Header -->
+        <div class="flex-1 flex flex-col md:ml-64 h-screen overflow-y-auto">
             <header
                 class="bg-white shadow-md p-4 flex justify-between items-center md:hidden fixed top-0 left-0 right-0 z-40">
                 <button id="hamburger" class="text-gray-900 focus:outline-none">
@@ -39,10 +38,8 @@
                 </button>
                 <h1 class="text-lg font-semibold">GKJCC | Info Lowongan</h1>
                 <div class="relative" x-data="{ open: false }">
-                    <!-- Profile Button -->
                     <button @click="open = !open"
                         class="flex items-center px-4 py-2 bg-white rounded-lg shadow font-poppins space-x-3">
-                        <img src="{{ asset('putin.jpeg') }}" alt="Profile Picture" class="w-10 h-10 rounded-full">
                         <div class="ml-3 text-left">
                             <p class="font-bold">{{ Auth::user()->name }}</p>
                             <p class="font-semibold">{{ Auth::user()->role->role_name }}</p>
@@ -53,7 +50,6 @@
                         </svg>
                     </button>
 
-                    <!-- Dropdown Menu -->
                     <div x-show="open" @click.away="open = false" x-transition
                         class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
                         <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
@@ -69,14 +65,12 @@
                 </div>
             </header>
 
-            <!-- Desktop Header -->
             <div class="p-4 hidden md:block">
                 <x-header-dashboard>Info Lowongan</x-header-dashboard>
             </div>
 
-            <main class="p-4 pt-24 md:pt-0">
-                <div class="bg-white shadow-xl rounded-2xl overflow-hidden mb-6">
-                    <!-- Gradient Header -->
+            <main class="p-5 pt-24 pb-20 min-h-screen md:pt-0">
+                <div class="bg-white shadow-sm rounded-2xl overflow-auto mt-5 md:mt-0">
                     <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6">
                         <div class="flex justify-between items-center">
                             <h1 class="text-2xl font-bold text-white">Daftar Info Lowongan</h1>
@@ -87,31 +81,30 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
-                                Tambah Lowongan
+                                Tambah
                             </a>
                         </div>
                     </div>
 
                     <div class="p-6">
-                        <!-- Search and Limit Controls -->
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
-                            <div class="flex space-x-4">
+                            <div class="flex flex-wrap gap-4 w-full">
                                 <div class="w-full md:w-auto">
-                                    <x-limit route="pengguna" />
+                                    <x-limit route="info-lowongan" />
                                 </div>
                                 <div class="w-full sm:w-auto">
-                                    <x-search route="pengguna" />
+                                    <x-search route="info-lowongan" />
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Desktop Table -->
                         <div class="overflow-x-auto">
                             <table class="w-full hidden md:table">
                                 <thead>
                                     <tr class="bg-gray-100 text-left text-sm font-semibold uppercase tracking-wide">
                                         <th class="py-3 px-6 text-left">Judul Lowongan</th>
                                         <th class="py-3 px-6 text-left">Dibuat Oleh</th>
+                                        <th class="py-3 px-6 text-left">Dibuat Pada</th>
                                         <th class="py-3 px-6 text-left">Aksi</th>
                                     </tr>
                                 </thead>
@@ -121,12 +114,15 @@
                                             <td class="py-3 px-6">{{ $item->information_title }}</td>
                                             <td class="py-3 px-6">{{ $item->user->name }}</td>
                                             <td class="py-3 px-6">
+                                                {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('l, d F Y') }}
+                                            </td>
+                                            <td class="py-3 px-6">
                                                 <a href="{{ route('info-lowongan.edit', $item->id) }}"
                                                     class="bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Edit</a>
                                                 <a href="{{ route('info-lowongan.show', $item->id) }}"
                                                     class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Lihat</a>
-                                                <form action="{{ route('info-lowongan.destroy', $item->id) }}" method="POST"
-                                                    class="inline delete-form">
+                                                <form action="{{ route('info-lowongan.destroy', $item->id) }}"
+                                                    method="POST" class="inline delete-form">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button"
@@ -141,37 +137,42 @@
                             </table>
                         </div>
 
-                        <!-- Mobile Card View -->
-                        <div class="block md:hidden">
+                        <div class="block md:hidden w-full max-w-screen-sm mx-auto mt-3">
                             @foreach ($lowongan as $item)
-                            <div class="bg-white rounded-lg shadow-md mb-4 p-4">
-                                <div class="text-lg font-semibold text-gray-800 mb-2">
-                                    {{ $item->information_title }}
+                                <div class="bg-white rounded-lg shadow-md mb-3 p-3 text-sm">
+                                    <div class="text-base md:text-lg font-semibold text-gray-800 mb-2">
+                                        {{ $item->information_title }}
+                                    </div>
+                                    <div class="text-base md:text-lg font-semibold text-gray-800 mb-2">
+                                        Dibuat oleh {{ $item->user->name }}
+                                    </div>
+                                    <div class="text-base md:text-lg font-sm text-gray-800 mb-2">
+                                        Dibuat pada
+                                        {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('l, d F Y') }}
+                                    </div>
+                                    <div class="flex gap-2 mt-4">
+                                        <a href="{{ route('info-lowongan.edit', $item) }}"
+                                            class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 flex-1 text-center">
+                                            Edit
+                                        </a>
+                                        <a href="{{ route('info-lowongan.show', $item->id) }}"
+                                            class="bg-blue-500 text-white px-3 py-1.5 rounded-lg hover:bg-blue-600 transition duration-300 flex-1 text-center text-sm">Lihat</a>
+                                        <form action="{{ route('info-lowongan.destroy', $item->id) }}" method="POST"
+                                            class="inline delete-form flex-1">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button"
+                                                class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 w-full delete-button"
+                                                data-id="{{ $item->id }}"
+                                                data-name="{{ $item->information_title }}">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="grid grid-cols-1 gap-4 text-left">
-                                    <p><span class="font-semibold">Cover:</span> {{ $item->information_head_cover }}</p>
-                                    <p><span class="font-semibold">Dibuat oleh:</span> {{ $item->user->name }}</p>
-                                </div>
-                                <div class="flex gap-2 mt-4">
-                                    <a href="{{ route('info-lowongan.edit', $item) }}"
-                                        class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 flex-1 text-center">
-                                        Edit
-                                    </a>
-                                    <form action="{{ route('info-lowongan.destroy', $item->id) }}" method="POST" class="inline delete-form flex-1">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button"
-                                            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 w-full delete-button"
-                                            data-id="{{ $item->id }}" data-name="{{ $item->information_title }}">
-                                            Hapus
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
                             @endforeach
                         </div>
 
-                        <!-- Pagination -->
                         <div class="mt-6 flex justify-center">
                             {{ $lowongan->appends(['search' => request('search'), 'limit' => request('limit')])->links('pagination::tailwind') }}
                         </div>
@@ -180,11 +181,9 @@
             </main>
         </div>
 
-        <!-- Overlay for Sidebar -->
         <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
     </div>
     <script>
-        // Toggle Sidebar
         const hamburger = document.getElementById('hamburger');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
@@ -194,16 +193,14 @@
             overlay.classList.toggle('hidden');
         });
 
-        // Close sidebar when clicking outside
         overlay.addEventListener('click', () => {
             sidebar.classList.add('-translate-x-full');
             overlay.classList.add('hidden');
         });
-        // Handle search input change
-        // Fungsi untuk menangani pencarian dan pagination
+
         function updateMenus(page = 1, search = '', limit = '') {
             $.ajax({
-                url: '/pengguna', // Sesuaikan URL dengan rute controller
+                url: '/pengguna',
                 method: 'GET',
                 data: {
                     search: search,
@@ -211,45 +208,39 @@
                     page: page
                 },
                 success: function(response) {
-                    // // Update menu list
-                    // $('#menuList').html(response.buku);
 
-                    // Update pagination links
+
                     $('#pagination').html(response.pagination);
                 }
             });
         }
 
-        // Pencarian input
         $('#searchInput').on('input', function() {
             var search = $(this).val();
-            var limit = $('#limit').val(); // Ambil limit yang dipilih
-            updateMenus(1, search, limit); // Panggil updateMenus untuk halaman pertama
+            var limit = $('#limit').val();
+            updateMenus(1, search, limit);
         });
 
-        // Handle pagination click
         $(document).on('click', '.pagination a', function(e) {
             e.preventDefault();
             var page = $(this).attr('href').split('page=')[1];
-            var search = $('#searchInput').val(); // Ambil nilai pencarian
-            var limit = $('#limit').val(); // Ambil limit yang dipilih
-            updateMenus(page, search, limit); // Panggil updateMenus dengan halaman yang diinginkan
+            var search = $('#searchInput').val();
+            var limit = $('#limit').val();
+            updateMenus(page, search, limit);
         });
 
         document.addEventListener("DOMContentLoaded", function() {
-            // Ambil semua tombol delete
             const deleteButtons = document.querySelectorAll('.delete-button');
 
             deleteButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
 
-                    const form = this.closest('form'); // Ambil form terdekat
+                    const form = this.closest('form');
                     const penggunaName = this.getAttribute('data-name');
 
-                    // Tampilkan konfirmasi penghapusan
                     Swal.fire({
-                        title: `Apakah anda yakin ingin menghapus pengguna ${penggunaName}?`,
+                        title: `Apakah anda yakin ingin menghapus informasi lowongan ${penggunaName}?`,
                         text: "Data tidak dapat dikembalikan setelah dihapus!",
                         icon: "warning",
                         showCancelButton: true,
@@ -259,7 +250,7 @@
                         cancelButtonText: "Batal"
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            form.submit(); // Jika dikonfirmasi, submit form
+                            form.submit();
                         }
                     });
                 });

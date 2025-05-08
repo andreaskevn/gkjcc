@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\{
     Information,
     Komisi,
@@ -12,12 +13,13 @@ use App\Models\{
     Bidang,
     Choir,
     Form,
-    WeeklySchedule
+    WeeklySchedule,
+    Visitor
 };
 
 class GuestController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $pengumuman = Information::with('user', 'category')->where('category_id', 1)
             ->latest()
@@ -31,6 +33,15 @@ class GuestController extends Controller
             ->latest()
             ->take(3)
             ->get();
+        if (!Auth::check()) {
+            Visitor::create([
+                'ip_address' => $request->ip(),
+                'visited_at' => now(),
+            ]);
+        }
+        logger('Pengunjung guest terdeteksi: ' . $request->ip());
+        // dd('GuestController index dipanggil');
+        // dd($request->ip());
         $beasiswa = Scholarship::with('users')->latest()->take(3)->get();
         $jadwalsepekan = WeeklySchedule::all();
         $worshipSchedules = WorshipSchedule::all()->groupBy('category_id');

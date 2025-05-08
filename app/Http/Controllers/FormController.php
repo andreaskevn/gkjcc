@@ -5,23 +5,30 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use  App\Models\Form;
 use App\Models\FormCategories;
+use Illuminate\Validation\Rule;
 
 class FormController extends Controller
 {
     public function showForm(Request $request)
     {
         $search = $request->input('search', '');
-        $limit = $request->input('limit', 5); // Default limit ke 5
+        $limit = $request->input('limit', 5);
         $limitOptions = [5, 10, 25, 50];
+        $filterKategori = $request->input('filterKategori', '');
 
-        $query = Form::query();
+        $query = Form::query()->orderBy('created_at', 'desc');
 
         if ($search) {
-            $query->where('name', 'LIKE', "%{$search}%");
+            $query->where('form_name', 'LIKE', "%{$search}%");
+        }
+
+        if ($filterKategori) {
+            $query->where('form_category_id', $filterKategori);
         }
 
         $form = $query->paginate($limit);
-        return view('form.tampilan', compact('form', 'search', 'limit', 'limitOptions'));
+        $categories = FormCategories::all();
+        return view('form.tampilan', compact('form', 'search', 'limit', 'limitOptions', 'categories', 'filterKategori'));
     }
 
     public function createForm()
@@ -33,11 +40,28 @@ class FormController extends Controller
 
     public function storeForm(Request $request)
     {
-        $request->validate([
-            'form_name' => 'required|max:255',
-            'file' => 'required|mimes:docx,pdf|max:2048',
-            'form_category_id' => 'required'
-        ]);
+        $request->validate(
+            [
+                'form_name' => [
+                    'required',
+                    Rule::unique('forms')
+                        ->where(function ($query) use ($request) {
+                            return $query->where('form_category_id', $request->form_category_id);
+                        })
+                ],
+                'file' => 'required|mimes:docx,pdf|max:10000',
+                'form_category_id' => 'required|exists:form_categories,id'
+            ],
+            [
+                'form_name.required' => 'Judul form harus diisi',
+                'form_name.unique' => 'Judul form sudah ada',
+                'form_name.max' => 'Judul form maksimal 255 karakter',
+                'file.required' => 'File harus diisi',
+                'file.mimes' => 'File harus berupa dokumen (DOCX, PDF)',
+                'file.max' => 'Ukuran file maksimal 2MB',
+                'form_category_id.required' => 'Kategori form harus dipilih'
+            ]
+        );
 
         $file = $request->file('file');
         $fileName = time() . '.' . $file->getClientOriginalExtension();
@@ -61,11 +85,28 @@ class FormController extends Controller
 
     public function updateForm(Request $request, $id)
     {
-        $request->validate([
-            'form_name' => 'required|max:255',
-            'file' => 'mimes:docx,pdf|max:2048',
-            'form_category_id' => 'required|exists:form_categories,id'
-        ]);
+        $request->validate(
+            [
+                'form_name' => [
+                    'required',
+                    Rule::unique('forms')
+                        ->where(function ($query) use ($request) {
+                            return $query->where('form_category_id', $request->form_category_id);
+                        })
+                        ->ignore($id),
+                ],
+                'file' => 'mimes:docx,pdf|max:2048',
+                'form_category_id' => 'required|exists:form_categories,id'
+            ],
+            [
+                'form_name.required' => 'Judul form harus diisi',
+                'form_name.unique' => 'Judul form sudah ada',
+                'form_name.max' => 'Judul form maksimal 255 karakter',
+                'file.mimes' => 'File harus berupa dokumen (DOCX, PDF)',
+                'file.max' => 'Ukuran file maksimal 2MB',
+                'form_category_id.required' => 'Kategori form harus dipilih'
+            ]
+        );
 
         $file = null;
 
@@ -93,9 +134,9 @@ class FormController extends Controller
         return redirect()->route('form')->with('success', 'Form berhasil dihapus');
     }
 
-    public function showDetailForm($id)
-    {
-        $form = Form::find($id);
-        return view('form.show', compact('form'));
-    }
+    // public function showDetailForm($id)
+    // {
+    //     $form = Form::find($id);
+    //     return view('form.show', compact('form'));
+    // }
 }

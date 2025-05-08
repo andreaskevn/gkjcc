@@ -46,9 +46,10 @@
                                 value="{{ old('form_category_name') }}" required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-italic"
                                 placeholder="Contoh: Sakramen Pernikahan, Sakramen Baptis">
+                            @error('form_category_name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
-
-
 
                         <div class="mt-6 flex justify-between gap-4">
                             <button type="button" onclick="window.location='{{ route('kategori-form') }}'"
@@ -66,7 +67,6 @@
         </div>
     </div>
 
-    <!-- Overlay for mobile -->
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
     </div>
 

@@ -39,6 +39,9 @@
                             <input type="text" name="commission_name" id="commission_name"
                                 value="{{ $komisi->commission_name }}" required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('commission_name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mb-4">
@@ -52,6 +55,9 @@
                                         {{ $bidang->bidang_name }}</option>
                                 @endforeach
                             </select>
+                            @error('bidang_id')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
@@ -60,7 +66,6 @@
                             <textarea name="commission_description" id="commission_description" rows="6"
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 required>{{ old('commission_description', $komisi->commission_description) }}</textarea>
-
                             @error('commission_description')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -70,8 +75,8 @@
                             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
                                 id="drop-area-1">
                                 <div class="text-center">
-                                    <input id="image1" name="image1" type="file" class="sr-only" accept="image/*"
-                                        >
+                                    <input id="image1" name="image1" type="file" class="sr-only"
+                                        accept="image/*">
                                     <span id="file-upload-label-1">Unggah gambar untuk cover atau drag n drop ke
                                         sini.</span>
                                 </div>
@@ -88,9 +93,7 @@
                         <label for="commission_description_2" class="block text-gray-700 text-sm font-medium">Deskripsi
                             Komisi</label>
                         <textarea name="commission_description_2" id="commission_description_2" rows="6"
-                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                >{{ old('commission_description', $komisi->commission_description_2) }}</textarea>
-
+                            class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">{{ old('commission_description', $komisi->commission_description_2) }}</textarea>
                         @error('commission_description_2')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -108,6 +111,9 @@
                                 </div>
                             </div>
                             <p class="mt-1 text-xs text-gray-600">PNG, JPG, hingga 5MB</p>
+                            @error('image2')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         @if ($komisi->commission_pict)
@@ -117,6 +123,7 @@
                                     class="w-40 mt-2 rounded-md border border-gray-300 shadow">
                             </div>
                         @endif
+                        
                         <div class="mt-6 flex justify-between gap-4">
                             <button type="button" onclick="window.location='{{ route('commission') }}'"
                                 class="w-full py-3 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out hover:bg-red-700">

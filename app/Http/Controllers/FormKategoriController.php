@@ -31,9 +31,14 @@ class FormKategoriController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'form_category_name' => 'required',
-        ]);
+        $request->validate(
+            [
+                'form_category_name' => 'required',
+            ],
+            [
+                'form_category_name.required' => 'Nama Kategori Form harus diisi.',
+            ]
+        );
 
         FormCategories::create([
             'form_category_name' => $request->form_category_name,
@@ -50,9 +55,14 @@ class FormKategoriController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'form_category_name' => 'required',
-        ]);
+        $request->validate(
+            [
+                'form_category_name' => 'required',
+            ],
+            [
+                'form_category_name.required' => 'Nama Kategori Form harus diisi.',
+            ]
+        );
 
         $category = FormCategories::findOrFail($id);
         $category->form_category_name = $request->form_category_name;
@@ -64,6 +74,9 @@ class FormKategoriController extends Controller
     public function destroy($id)
     {
         $category = FormCategories::findOrFail($id);
+        if (Form::where('form_category_id', $category->id)->exists()) {
+            return redirect()->route('kategori-form')->with('error', 'Tidak bisa menghapus kategori ini karena ada formulir yang terhubung.');
+        }
         $category->delete();
         return redirect()->route('kategori-form')->with('success', 'Kategori Form berhasil dihapus.');
     }

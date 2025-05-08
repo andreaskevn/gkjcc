@@ -21,15 +21,21 @@ class BidangController extends Controller
         $search = $request->input('search', '');
         $limit = $request->input('limit', 5); // Default limit ke 5
         $limitOptions = [5, 10, 25, 50];
+        $filterBidang = $request->input('filterBidang', '');
 
-        $query = Komisi::with('users', 'bidangs');
+        $query = Komisi::with('users', 'bidangs')->orderBy('created_at', 'desc');;
 
         if ($search) {
-            $query->where('name', 'LIKE', "%{$search}%");
+            $query->where('commission_name', 'LIKE', "%{$search}%");
+        }
+
+        if ($filterBidang) {
+            $query->where('bidang_id', $filterBidang);
         }
 
         $komisi = $query->paginate($limit);
-        return view('komisi.tampilan', compact('komisi', 'search', 'limit', 'limitOptions'));
+        $bidangs = Bidang::with('komisi')->get();
+        return view('komisi.tampilan', compact('komisi', 'search', 'limit', 'limitOptions', 'filterBidang', 'bidangs'));
     }
 
     public function createKomisi()
@@ -41,14 +47,28 @@ class BidangController extends Controller
 
     public function storeKomisi(Request $request)
     {
-        $request->validate([
-            'commission_name' => 'required|max:255',
-            'commission_description' => 'required',
-            'image1' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'commission_description_2' => 'required',
-            'bidang_id' => 'required|exists:bidangs,id',
-        ]);
+        $request->validate(
+            [
+                'commission_name' => 'required|max:255',
+                'commission_description' => 'required',
+                'image1' => 'required|image|mimes:jpeg,png,jpg,gif|max:5500',
+                'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5500',
+                'commission_description_2' => 'required',
+                'bidang_id' => 'required|exists:bidangs,id',
+            ],
+            [
+                'bidang_id.exists' => 'Bidang tidak ditemukan.',
+                'commission_name.required' => 'Nama komisi harus diisi.',
+                'commission_name.max' => 'Nama komisi maksimal 255 karakter.',
+                'commission_description.required' => 'Deskripsi komisi harus diisi.',
+                'image1.required' => 'Gambar harus diisi.',
+                'image1.image' => 'File harus berupa gambar (PNG, JPG, JPEG, GIF).',
+                'image1.max' => 'Ukuran gambar maksimal 5MB.',
+                'image2.image' => 'File harus berupa gambar (PNG, JPG, JPEG, GIF).',
+                'image2.max' => 'Ukuran gambar maksimal 5MB.',
+                'commission_description_2.required' => 'Deskripsi komisi harus diisi.',
+            ]
+        );
 
         $filename1 = null;
 
@@ -92,14 +112,28 @@ class BidangController extends Controller
 
     public function updateKomisi(Request $request)
     {
-        $request->validate([
-            "commission_name" => "required|max:255",
-            "commission_description" => "required",
-            "commission_description_2" => "nullable",
-            "image1" => "image|mimes:jpeg,png,jpg,gif|max:2048",
-            "image2" => "image|mimes:jpeg,png,jpg,gif|max:2048",
-            "bidang_id" => "required|exists:bidangs,id",
-        ]);
+        $request->validate(
+            [
+                "commission_name" => "required|max:255",
+                "commission_description" => "required",
+                "commission_description_2" => "nullable",
+                "image1" => "image|mimes:jpeg,png,jpg,gif|max:5500",
+                "image2" => "image|mimes:jpeg,png,jpg,gif|max:5500",
+                "bidang_id" => "required|exists:bidangs,id",
+            ],
+            [
+                'bidang_id.exists' => 'Bidang tidak ditemukan.',
+                'commission_name.required' => 'Nama komisi harus diisi.',
+                'commission_name.max' => 'Nama komisi maksimal 255 karakter.',
+                'commission_description.required' => 'Deskripsi komisi harus diisi.',
+                'image1.required' => 'Gambar harus diisi.',
+                'image1.image' => 'File harus berupa gambar (PNG, JPG, JPEG, GIF).',
+                'image1.max' => 'Ukuran gambar maksimal 5MB.',
+                'image2.image' => 'File harus berupa gambar (PNG, JPG, JPEG, GIF).',
+                'image2.max' => 'Ukuran gambar maksimal 5MB.',
+                'commission_description_2.required' => 'Deskripsi komisi harus diisi.',
+            ]
+        );
 
         $filename1 = null;
 
@@ -155,10 +189,10 @@ class BidangController extends Controller
         $limit = $request->input('limit', 5); // Default limit ke 5
         $limitOptions = [5, 10, 25, 50];
 
-        $query = Choir::with('users');
+        $query = Choir::with('users')->orderBy('created_at', 'desc');;
 
         if ($search) {
-            $query->where('name', 'LIKE', "%{$search}%");
+            $query->where('choir_name', 'LIKE', "%{$search}%");
         }
 
         $choir = $query->paginate($limit);
@@ -173,13 +207,26 @@ class BidangController extends Controller
 
     public function storeChoir(Request $request)
     {
-        $request->validate([
-            'choir_name' => 'required|max:255',
-            'choir_description' => 'required',
-            'choir_description_2' => 'required',
-            'image1' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image2' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        $request->validate(
+            [
+                'choir_name' => 'required|max:255',
+                'choir_description' => 'required',
+                'choir_description_2' => 'required',
+                'image1' => 'required|image|mimes:jpeg,png,jpg,gif|max:5500',
+                'image2' => 'image|mimes:jpeg,png,jpg,gif|max:5500',
+            ],
+            [
+                'choir_name.required' => 'Nama Choir harus diisi.',
+                'choir_name.max' => 'Nama Choir maksimal 255 karakter.',
+                'choir_description.required' => 'Deskripsi Paduan Suara harus diisi.',
+                'image1.required' => 'Gambar harus diisi.',
+                'image1.image' => 'File harus berupa gambar (PNG, JPG, JPEG, GIF).',
+                'image1.max' => 'Ukuran gambar maksimal 5MB.',
+                'image2.image' => 'File harus berupa gambar (PNG, JPG, JPEG, GIF).',
+                'image2.max' => 'Ukuran gambar maksimal 5MB.',
+                'choir_description_2.required' => 'Deskripsi Paduan Suara harus diisi.',
+            ]
+        );
 
         $filename1 = null;
 
@@ -221,13 +268,24 @@ class BidangController extends Controller
 
     public function updateChoir(Request $request)
     {
-        $request->validate([
-            "choir_name" => "required|max:255",
-            "choir_description" => "required",
-            "choir_description_2" => "nullable",
-            "image1" => "image|mimes:jpeg,png,jpg,gif|max:2048",
-            "image2" => "image|mimes:jpeg,png,jpg,gif|max:2048",
-        ]);
+        $request->validate(
+            [
+                "choir_name" => "required|max:255",
+                "choir_description" => "required",
+                "choir_description_2" => "nullable",
+                "image1" => "image|mimes:jpeg,png,jpg,gif|max:5500",
+                "image2" => "image|mimes:jpeg,png,jpg,gif|max:5500",
+            ],
+            [
+                'choir_name.required' => 'Nama Choir harus diisi.',
+                'choir_name.max' => 'Nama Choir maksimal 255 karakter.',
+                'choir_description.required' => 'Deskripsi Paduan Suara harus diisi.',
+                'image1.image' => 'File harus berupa gambar (PNG, JPG, JPEG, GIF).',
+                'image1.max' => 'Ukuran gambar maksimal 5MB.',
+                'image2.image' => 'File harus berupa gambar (PNG, JPG, JPEG, GIF).',
+                'image2.max' => 'Ukuran gambar maksimal 5MB.',
+            ]
+        );
 
         $filename1 = null;
 

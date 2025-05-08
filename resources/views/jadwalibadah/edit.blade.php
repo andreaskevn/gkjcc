@@ -47,6 +47,9 @@
                                     </option>
                                 @endforeach
                             </select>
+                            @error('category_id')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
@@ -56,6 +59,9 @@
                                 value="{{ old('worship_schedule_name', $jadwalibadah->worship_schedule_name) }}"
                                 required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm">
+                            @error('worship_schedule_name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mb-4 flex gap-4">
@@ -65,7 +71,11 @@
                                 <input type="time" name="worship_schedule_hour" id="worship_schedule_hour"
                                     value="{{ old('worship_schedule_hour', \Carbon\Carbon::parse($jadwalibadah->worship_schedule_hour)->format('H:i')) }}"
                                     required class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm">
+                                @error('worship_schedule_hour')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
+
                             <div class="w-1/2">
                                 <label for="worship_schedule_day"
                                     class="block text-gray-700 text-sm font-medium mb-1">Hari</label>
@@ -78,6 +88,9 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @error('worship_schedule_day')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
 
@@ -93,6 +106,9 @@
                                     {{ $jadwalibadah->worship_schedule_language == 'Bahasa Jawa' ? 'selected' : '' }}>
                                     Bahasa Jawa</option>
                             </select>
+                            @error('worship_schedule_language')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mb-4">
@@ -107,6 +123,9 @@
                                     </option>
                                 @endforeach
                             </select>
+                            @error('pastor_id')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mt-6 flex justify-between gap-4">

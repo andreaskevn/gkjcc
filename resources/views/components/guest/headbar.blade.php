@@ -9,9 +9,11 @@
         }
     </style>
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <img src="{{ asset('img/logo.jpeg') }}" alt="Logo GKJ" class="h-10">
-            <span class="font-semibold text-lg">GKJ Condongcatur</span>
+        <div>
+            <a href="/" class="flex items-center space-x-3">
+                <img src="{{ asset('images/logo.webp') }}" alt="Logo GKJ" class="h-10">
+                <span class="font-semibold text-lg">GKJ Condongcatur</span>
+            </a>
         </div>
         <!-- Menu Desktop -->
         <ul class="hidden md:flex space-x-6 font-medium text-gray-700 relative">

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GKJCC | Formulir</title>
-    <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
+    <link rel="icon" href="{{ asset('images/logo.webp') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -20,14 +20,12 @@
 
 <body class="bg-gray-50 font-sans leading-normal tracking-normal">
     <div class="flex min-h-screen relative">
-        <!-- Sidebar -->
         <div id="sidebar"
             class="fixed inset-y-0 left-0 bg-gray-900 text-white w-64 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50">
             <x-sidebar></x-sidebar>
         </div>
 
-        <div class="flex-1 flex flex-col md:ml-64">
-            <!-- Mobile Header -->
+        <div class="flex-1 flex flex-col md:ml-64 h-screen overflow-y-auto">
             <header
                 class="bg-white shadow-md p-4 flex justify-between items-center md:hidden fixed top-0 left-0 right-0 z-40">
                 <button id="hamburger" class="text-gray-900 focus:outline-none">
@@ -39,10 +37,8 @@
                 </button>
                 <h1 class="text-lg font-semibold">GKJCC | Formulir</h1>
                 <div class="relative" x-data="{ open: false }">
-                    <!-- Profile Button -->
                     <button @click="open = !open"
                         class="flex items-center px-4 py-2 bg-white rounded-lg shadow font-poppins space-x-3">
-                        <img src="{{ asset('putin.jpeg') }}" alt="Profile Picture" class="w-10 h-10 rounded-full">
                         <div class="ml-3 text-left">
                             <p class="font-bold">{{ Auth::user()->name }}</p>
                             <p class="font-semibold">{{ Auth::user()->role->role_name }}</p>
@@ -53,7 +49,6 @@
                         </svg>
                     </button>
 
-                    <!-- Dropdown Menu -->
                     <div x-show="open" @click.away="open = false" x-transition
                         class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
                         <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
@@ -69,14 +64,12 @@
                 </div>
             </header>
 
-            <!-- Desktop Header -->
             <div class="p-4 hidden md:block">
                 <x-header-dashboard>Formulir</x-header-dashboard>
             </div>
 
-            <main class="p-4 pt-24 md:pt-0">
-                <div class="bg-white shadow-xl rounded-2xl overflow-hidden mb-6">
-                    <!-- Gradient Header -->
+            <main class="p-5 pt-24 pb-20 min-h-screen md:pt-0">
+                <div class="bg-white shadow-xl rounded-2xl overflow-auto mt-5 md:mt-0">
                     <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6">
                         <div class="flex justify-between items-center">
                             <h1 class="text-2xl font-bold text-white">Daftar Formulir</h1>
@@ -87,25 +80,40 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
-                                Tambah Formulir
+                                Tambah
                             </a>
                         </div>
                     </div>
 
                     <div class="p-6">
-                        <!-- Search and Limit Controls -->
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
-                            <div class="flex space-x-4">
-                                <div class="w-full md:w-auto">
+                            <div class="flex flex-wrap gap-4 w-full md:w-auto">
+                                <div>
                                     <x-limit route="form" />
                                 </div>
-                                <div class="w-full sm:w-auto">
+                                <form action="{{ route('form') }}" method="GET" id="filterForm"
+                                    class="flex gap-4 items-center">
+                                    <select name="filterKategori"
+                                        onchange="document.getElementById('filterForm').submit();"
+                                        class="border px-3 py-2 rounded-md">
+                                        <option value="">- Semua Kategori Form -</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                {{ $filterKategori == $category->id ? 'selected' : '' }}>
+                                                {{ $category->form_category_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    <input type="hidden" name="search" value="{{ $search }}">
+                                    <input type="hidden" name="limit" value="{{ $limit }}">
+                                </form>
+                                <div>
                                     <x-search route="form" />
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Desktop Table -->
                         <div class="overflow-x-auto">
                             <table class="w-full hidden md:table">
                                 <thead>
@@ -123,10 +131,15 @@
                                             <td class="py-3 px-6">
                                                 <a href="{{ route('form.edit', $item->id) }}"
                                                     class="bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Edit</a>
-                                                <a href="{{ route('form.show', $item->id) }}"
-                                                    class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Lihat</a>
-                                                <form action="{{ route('form.destroy', $item->id) }}"
-                                                    method="POST" class="inline delete-form">
+                                                @if ($item->form_file)
+                                                    <a href="{{ asset('uploads/' . $item->form_file) }}"
+                                                        class="inline-block bg-green-500 text-white text-sm px-3 py-1 rounded w-24 text-center hover:bg-green-600"
+                                                        download>
+                                                        Download
+                                                    </a>
+                                                @endif
+                                                <form action="{{ route('form.destroy', $item->id) }}" method="POST"
+                                                    class="inline delete-form">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button"
@@ -141,34 +154,43 @@
                             </table>
                         </div>
 
-                        <!-- Mobile Card View -->
                         <div class="md:hidden">
                             @foreach ($form as $item)
-                            <div class="bg-white rounded-lg shadow-md mb-4 p-4">
-                                <div class="grid grid-cols-1 gap-4 text-left">
-                                    <p><span class="font-semibold">Nama Formulir:</span> {{ $item->form_name }}</p>
-                                    <p><span class="font-semibold">Kategori:</span> {{ $item->category->Kategori }}</p>
+                                <div class="bg-white rounded-lg shadow-md mb-4 p-4">
+                                    <div class="grid grid-cols-1 gap-4 text-left">
+                                        <p><span class="font-semibold">Nama Formulir:</span> {{ $item->form_name }}
+                                        </p>
+                                        <p><span class="font-semibold">Kategori:</span>
+                                            {{ $item->category->form_category_name }}
+                                        </p>
+                                    </div>
+                                    <div class="flex gap-2 mt-4">
+                                        <a href="{{ route('form.edit', $item) }}"
+                                            class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 flex-1 text-center">
+                                            Edit
+                                        </a>
+                                        @if ($item->form_file)
+                                            <a href="{{ asset('uploads/' . $item->form_file) }}"
+                                                class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300 flex-1 text-center text-sm"
+                                                download>
+                                                Download
+                                            </a>
+                                        @endif
+                                        <form action="{{ route('form.destroy', $item->id) }}" method="POST"
+                                            class="inline delete-form flex-1">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button"
+                                                class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 w-full delete-button"
+                                                data-id="{{ $item->id }}" data-name="{{ $item->form_name }}">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="flex gap-2 mt-4">
-                                    <a href="{{ route('form.edit', $item) }}"
-                                        class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300 flex-1 text-center">
-                                        Edit
-                                    </a>
-                                    <form action="{{ route('form.destroy', $item->id) }}" method="POST" class="inline delete-form flex-1">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button"
-                                            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 w-full delete-button"
-                                            data-id="{{ $item->id }}" data-name="{{ $item->worship_schedule_name }}">
-                                            Hapus
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
                             @endforeach
                         </div>
 
-                        <!-- Pagination -->
                         <div class="mt-6 flex justify-center">
                             {{ $form->appends(['search' => request('search'), 'limit' => request('limit')])->links('pagination::tailwind') }}
                         </div>
@@ -177,7 +199,6 @@
             </main>
         </div>
 
-        <!-- Overlay for Sidebar -->
         <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
     </div>
     <script>
@@ -246,7 +267,7 @@
 
                     // Tampilkan konfirmasi penghapusan
                     Swal.fire({
-                        title: `Apakah anda yakin ingin menghapus pengguna ${penggunaName}?`,
+                        title: `Apakah anda yakin ingin menghapus ${penggunaName}?`,
                         text: "Data tidak dapat dikembalikan setelah dihapus!",
                         icon: "warning",
                         showCancelButton: true,
@@ -256,7 +277,7 @@
                         cancelButtonText: "Batal"
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            form.submit(); // Jika dikonfirmasi, submit form
+                            form.submit();
                         }
                     });
                 });

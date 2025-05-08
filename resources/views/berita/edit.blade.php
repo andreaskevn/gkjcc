@@ -29,8 +29,8 @@
                 <div class="w-full max-w-4xl bg-white p-10 rounded-2xl shadow-xl">
                     <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Ubah Berita</h2>
 
-                    <form action="{{ route('berita.update', $berita) }}" method="POST"
-                        enctype="multipart/form-data" class="space-y-6">
+                    <form action="{{ route('berita.update', $berita) }}" method="POST" enctype="multipart/form-data"
+                        class="space-y-6">
                         @csrf
 
                         <div>
@@ -39,6 +39,9 @@
                             <input type="text" name="information_title" id="information_title"
                                 value="{{ $berita->information_title }}" required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('information_title')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
@@ -66,6 +69,9 @@
                                 </div>
                             </div>
                             <p class="mt-1 text-xs text-gray-600">PNG, JPG, hingga 5MB</p>
+                            @error('image')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         @if ($berita->information_head_cover)

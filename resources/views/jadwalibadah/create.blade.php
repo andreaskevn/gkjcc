@@ -34,8 +34,8 @@
                         @csrf
 
                         <div class="mb-4">
-                            <label for="category_id"
-                                class="block text-gray-700 text-sm font-medium mb-1">Kategori Jadwal Ibadah</label>
+                            <label for="category_id" class="block text-gray-700 text-sm font-medium mb-1">Kategori
+                                Jadwal Ibadah</label>
                             <select name="category_id" id="category_id" required
                                 class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 <option value="">-- Pilih Kategori --</option>
@@ -46,17 +46,23 @@
                                     </option>
                                 @endforeach
                             </select>
+                            @error('category_id')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
                             <label for="worship_schedule_name" class="block text-gray-700 text-sm font-medium">Nama
                                 Jadwal Ibadah</label>
-                            <input type="text" name="worship_schedule_name"
-                                id="worship_schedule_name" value="{{ old('worship_schedule_name') }}"
-                                required
+                            <input type="text" name="worship_schedule_name" id="worship_schedule_name"
+                                value="{{ old('worship_schedule_name') }}" required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 placeholder="Contoh: Ibadah Minggu Pagi, Ibadah Paskah Pagi">
+                            @error('worship_schedule_name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
+
                         <div class="mb-4 flex gap-4">
                             <div class="w-1/2">
                                 <label for="worship_schedule_hour"
@@ -64,7 +70,11 @@
                                 <input type="time" name="worship_schedule_hour" id="worship_schedule_hour"
                                     value="{{ old('worship_schedule_hour') }}" required
                                     class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                @error('worship_schedule_hour')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
+
                             <div class="w-1/2">
                                 <label for="worship_schedule_day"
                                     class="block text-gray-700 text-sm font-medium mb-1">Hari</label>
@@ -78,6 +88,9 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @error('worship_schedule_day')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
 
                         </div>
@@ -96,6 +109,9 @@
                                     Bahasa Jawa
                                 </option>
                             </select>
+                            @error('worship_schedule_language')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mb-4">
@@ -110,6 +126,9 @@
                                     </option>
                                 @endforeach
                             </select>
+                            @error('pastor_id')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
 

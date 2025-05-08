@@ -39,6 +39,9 @@
                             <input type="text" name="scholarship_title" id="scholarship_title"
                                 value="{{ $scholarship->scholarship_title }}" required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('scholarship_title')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
@@ -47,7 +50,6 @@
                             <textarea name="scholarship_description" id="scholarship_description" rows="6"
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 required>{{ old('scholarship_description', $scholarship->scholarship_description) }}</textarea>
-
                             @error('scholarship_description')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -66,21 +68,28 @@
                                 </div>
                             </div>
                             <p class="mt-1 text-xs text-gray-600">PNG, JPG, hingga 5MB</p>
+                            @error('image')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         @if ($scholarship->scholarship_head_cover)
                             <div class="mt-4">
                                 <p class="text-sm text-gray-600">Cover saat ini:</p>
-                                <img src="{{ asset('img/' . $scholarship->scholarship_head_cover) }}" alt="Current cover"
-                                    class="w-40 mt-2 rounded-md border border-gray-300 shadow">
+                                <img src="{{ asset('img/' . $scholarship->scholarship_head_cover) }}"
+                                    alt="Current cover" class="w-40 mt-2 rounded-md border border-gray-300 shadow">
                             </div>
                         @endif
 
                         <div>
-                            <label for="scholarship_phone" class="block text-gray-700 text-sm font-medium">Nomor PIC Beasiswa</label>
+                            <label for="scholarship_phone" class="block text-gray-700 text-sm font-medium">Nomor PIC
+                                Beasiswa</label>
                             <input type="number" name="scholarship_phone" id="scholarship_phone"
                                 value="{{ $scholarship->scholarship_phone }}" required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('scholarship_phone')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mt-6 flex justify-between gap-4">

@@ -39,6 +39,9 @@
                             <input type="text" name="form_name" id="form_name" value="{{ $form->form_name }}"
                                 required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('form_name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mb-4">
@@ -55,6 +58,9 @@
                                     </option>
                                 @endforeach
                             </select>
+                            @error('form_category_id')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
 
@@ -71,13 +77,9 @@
                                         sini.</span>
                                 </div>
                             </div>
-                            @if ($errors->any())
-                                <div>
-                                    @foreach ($errors->all() as $error)
-                                        <p class="text-red-500">{{ $error }}</p>
-                                    @endforeach
-                                </div>
-                            @endif
+                            @error('file')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
 
                             <p class="mt-1 text-xs text-gray-600">PDF, DOCX, hingga 5MB</p>
                         </div>

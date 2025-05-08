@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ubah Warta</title>
-    <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
+    <link rel="icon" href="{{ asset('images/logo.webp') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
@@ -36,9 +36,12 @@
                         <div>
                             <label for="warta_title" class="block text-gray-700 text-sm font-medium">Judul
                                 Warta</label>
-                            <input type="text" name="warta_title" id="warta_title"
-                                value="{{ $warta->warta_title }}" required
+                            <input type="text" name="warta_title" id="warta_title" value="{{ $warta->warta_title }}"
+                                required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('warta_title')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="col-span-full">
@@ -47,20 +50,15 @@
                                 id="drop-area">
                                 <div class="text-center">
                                     <input id="file" name="file" type="file" class="sr-only"
-                                        accept=".pdf,.docx" required>
+                                        accept=".pdf,.docx">
                                     <span id="file-upload-label">Unggah file atau drag n drop ke
                                         sini.</span>
                                 </div>
                             </div>
-                            @if ($errors->any())
-                                <div>
-                                    @foreach ($errors->all() as $error)
-                                        <p class="text-red-500">{{ $error }}</p>
-                                    @endforeach
-                                </div>
-                            @endif
-
                             <p class="mt-1 text-xs text-gray-600">PDF, DOCX, hingga 5MB</p>
+                            @error('file')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         @if ($warta->warta_file)
@@ -75,7 +73,7 @@
                             </div>
                         @endif
 
-
+                        <p>Preiew File</p>
                         @if ($warta->warta_file && Str::endsWith($warta->warta_file, '.pdf'))
                             <iframe src="{{ asset('uploads/' . $warta->warta_file) }}" width="100%"
                                 height="600px"></iframe>

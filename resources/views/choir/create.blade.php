@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Paduan Suara</title>
-    <link rel="icon" href="{{ asset('img/logo.jpeg') }}" type="image/png">
+    <link rel="icon" href="{{ asset('images/logo.webp') }}" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
@@ -36,14 +36,17 @@
                         <div>
                             <label for="choir_name" class="block text-gray-700 text-sm font-medium">Nama
                                 Paduan Suara</label>
-                            <input type="text" name="choir_name" id="choir_name"
-                                value="{{ old('choir_name') }}" required
+                            <input type="text" name="choir_name" id="choir_name" value="{{ old('choir_name') }}"
+                                required
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            @error('choir_name')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
-                        
+
                         <div>
-                            <label for="choir_description"
-                                class="block text-gray-700 text-sm font-medium">Deskripsi Komisi</label>
+                            <label for="choir_description" class="block text-gray-700 text-sm font-medium">Deskripsi
+                                Komisi</label>
                             <textarea name="choir_description" id="choir_description" rows="6"
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 required>{{ old('choir_description') }}</textarea>
@@ -53,7 +56,8 @@
                         </div>
 
                         <div class="col-span-full">
-                            <label for="image1" class="block text-sm font-medium text-gray-900">Cover Paduan Suara</label>
+                            <label for="image1" class="block text-sm font-medium text-gray-900">Cover Paduan
+                                Suara</label>
                             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
                                 id="drop-area-1">
                                 <div class="text-center">
@@ -63,11 +67,14 @@
                                         sini.</span>
                                 </div>
                             </div>
+                            @error('image1')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
-                            <label for="choir_description_2"
-                                class="block text-gray-700 text-sm font-medium">Penjelasan Paduan Suara</label>
+                            <label for="choir_description_2" class="block text-gray-700 text-sm font-medium">Penjelasan
+                                Paduan Suara</label>
                             <textarea name="choir_description_2" id="choir_description_2" rows="6"
                                 class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 required>{{ old('choir_description_2') }}</textarea>
@@ -77,17 +84,20 @@
                         </div>
 
                         <div class="col-span-full">
-                            <label for="image2" class="block text-sm font-medium text-gray-900">Gambar Kegiatan
+                            <label for="image2" class="block text-sm font-medium text-gray-900">Dokumentasi Kegiatan
                                 Paduan Suara</label>
                             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
                                 id="drop-area-2">
                                 <div class="text-center">
-                                    <input id="image2" name="image2" type="file" class="sr-only" accept="image/*"
-                                        >
+                                    <input id="image2" name="image2" type="file" class="sr-only"
+                                        accept="image/*">
                                     <span id="file-upload-label-2">Unggah gambar untuk kegiatan atau drag n drop ke
                                         sini.</span>
                                 </div>
                             </div>
+                            @error('image2')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="mt-6 flex justify-between gap-4">

@@ -12,7 +12,7 @@
         </section>
 
         <section class="max-w-7xl mx-auto px-6 py-16 bg-white">
-            <h2 class="text-4xl font-bold text-left text-gray-900 mb-12">Jadwal Ibadah</h2>
+            <h2 class="text-3xl font-bold text-left text-gray-800 mb-5">Jadwal Ibadah</h2>
             <div class="hidden md:grid md:grid-cols-3 gap-8">
                 @foreach ($worshipSchedules as $categoryId => $schedules)
                     <div
@@ -70,7 +70,7 @@
                     $daysOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
                     $groupedSchedules = $jadwalsepekan->groupBy('weekly_schedule_day');
                 @endphp
-                <h2 class="text-3xl font-bold text-left text-gray-800 mb-8">Jadwal Sepekan</h2>
+                <h2 class="text-3xl font-bold text-left text-gray-800 mb-5">Jadwal Sepekan</h2>
 
                 {{-- Desktop View --}}
                 <div class="hidden md:grid md:grid-cols-3 gap-8">

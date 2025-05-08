@@ -36,7 +36,7 @@
                     'Meningkatkan peran dan pelayanan konkret gereja bagi masyarakat.',
                 ];
 
-                $gradient = ['bg-gray-900'];
+                $gradient = ['bg-white'];
             @endphp
 
             <div class="grid grid-cols-1 md:grid-cols-6 gap-8">
@@ -48,7 +48,7 @@
                             class="md:col-span-2 bg-gradient-to-br {{ $bg }} rounded-3xl shadow-lg p-8 hover:shadow-2xl transition duration-300 min-h-[220px]">
                             <div class="flex items-start gap-4">
                                 <div>
-                                    <p class="text-white text-base md:text-lg leading-relaxed">{{ $item }}</p>
+                                    <p class="text-gray-900 text-base md:text-lg leading-relaxed">{{ $item }}</p>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                             class="md:col-span-3 bg-gradient-to-br {{ $bg }} rounded-3xl shadow-lg p-8 hover:shadow-2xl transition duration-300 min-h-[220px]">
                             <div class="flex items-start gap-4">
                                 <div>
-                                    <p class="text-white text-base md:text-lg leading-relaxed">{{ $item }}</p>
+                                    <p class="text-gray-900 text-base md:text-lg leading-relaxed">{{ $item }}</p>
                                 </div>
                             </div>
                         </div>

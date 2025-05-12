@@ -53,8 +53,7 @@
                         'images' => [
                             [
                                 'src' => 'images/sejarah/pembangunangereja.jpg',
-                                'caption' =>
-                                    'Masa Pembangunan Gereja GKJ Condongcatur',
+                                'caption' => 'Masa Pembangunan Gereja GKJ Condongcatur',
                             ],
                             [
                                 'src' => 'images/sejarah/penahbisanpdtdjunarso.jpg',
@@ -62,7 +61,8 @@
                             ],
                             [
                                 'src' => 'images/sejarah/pdtpurwantorahmad.jpg',
-                                'caption' => 'Pdt. Purwanto Rahmad ketika pertemuan dengan para majelis GKJ Condongcatur',
+                                'caption' =>
+                                    'Pdt. Purwanto Rahmad ketika pertemuan dengan para majelis GKJ Condongcatur',
                             ],
                         ],
                     ],
@@ -77,8 +77,7 @@
                             ],
                             [
                                 'src' => 'images/sejarah/penahbisanpdtrisang.jpg',
-                                'caption' =>
-                                    'Penahbisan Pdt. Risang Anggoro Elliarso',
+                                'caption' => 'Penahbisan Pdt. Risang Anggoro Elliarso',
                             ],
                         ],
                     ],

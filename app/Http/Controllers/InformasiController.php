@@ -9,6 +9,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Encoders\WebpEncoder;
 use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 
 class InformasiController extends Controller
 {
@@ -439,7 +440,14 @@ class InformasiController extends Controller
             [
                 'scholarship_title' => 'required|max:255',
                 'scholarship_description' => 'required',
-                'scholarship_phone' => 'required|numeric|digits_between:10,15|unique:scholarships',
+                'scholarship_phone' => [
+                    'required',
+                    Rule::unique('scholarships')
+                        ->where(function ($query) use ($request) {
+                            return $query->where('scholarship_phone', $request->scholarship_phone);
+                        })
+                        ->ignore($id),
+                ],
                 'image' => 'image|mimes:jpeg,png,jpg,gif|max:5500'
             ],
             [

@@ -42,7 +42,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="/struktur-organisasi"
                             class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
                             <span>Struktur Organisasi</span>
                         </a>

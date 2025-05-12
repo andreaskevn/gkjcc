@@ -40,6 +40,9 @@ Route::get('visi-misi', function(){
 Route::get('/sejarah', function() {
     return view ('guest.sejarah.tampilan');
 });
+Route::get('/struktur-organisasi', function() {
+    return view ('guest.struktur-organisasi.tampilan');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
